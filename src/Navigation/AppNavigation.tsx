@@ -11,7 +11,8 @@ import SignUpScreen from '../Screens/SignUpScreen'
 import HotelDetails from '../Screens/HotelDetails'
 import TagSelectionPage from '../Screens/TagSelectionPage'
 import BudgetQuestionPage from '../Screens/BudgetQuestionPage'
-import SigiriyaInfor from '../Screens/SigiriyaInfor'                
+import SigiriyaInfor from '../Screens/SigiriyaInfor'  
+import DatePicker from '../Screens/DatesPickPage'              
 
 
 const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ export default function AppNavigation() {
             <Stack.Screen name="HotelDetails" component={HotelDetails} />
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="DatesPickPage" component={DatePicker} />
             <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/>
     </Stack.Navigator>
     </NavigationContainer>

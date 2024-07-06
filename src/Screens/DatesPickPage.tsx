@@ -1,96 +1,103 @@
-// import React, {useState} from 'react';
-// import {ScrollView, StyleSheet, Text, View} from 'react-native';
-// import CalendarPicker, {
-//   DateChangedCallback,
-// } from 'react-native-calendar-picker';
-// import {Image} from 'react-native';
-// import {TouchableOpacity} from 'react-native';
+import React, { useState } from "react";
+import { View, StyleSheet, Alert, Image } from "react-native";
+import { Calendar } from "react-native-calendars";
+import moment from "moment";
+import { Text } from "react-native-elements";
 
-// const DatesPickPage: React.FC = ({navigation}: any) => {
-//   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
+const DateRangePicker = () => {
+  interface MarkedDates {
+    [date: string]: {
+      startingDay?: boolean;
+      endingDay?: boolean;
+      color: string;
+      textColor: string;
+    }
+  }
+  
+  const [markedDates, setMarkedDates] = useState<MarkedDates>({});
+  const [startDate, setStartDate] = useState("");
+  const [isStartDatePicked, setIsStartDatePicked] = useState(false);
 
-//   const onDateChange: DateChangedCallback = date => {
-//     setSelectedStartDate(date);
-//   };
+  const onDayPress = (day:any) => {
+    if (!isStartDatePicked) {
+      let markedDates: MarkedDates = {};
+      markedDates[day.dateString] = { startingDay: true, color: "#00B0BF", textColor: "#FFFFFF" };
+      setMarkedDates(markedDates);
+      setStartDate(day.dateString);
+      setIsStartDatePicked(true);
+    } else {
+      let updatedMarkedDates: MarkedDates = {...markedDates };
+      let start = moment(startDate);
+      let end = moment(day.dateString);
+      let range = end.diff(start, "days");
 
-//   const startDate = selectedStartDate ? selectedStartDate.toString() : '';
+      if (range > 0) {
+        for (let i = 1; i <= range; i++) {
+          let tempDate = start.add(1, "day").format("YYYY-MM-DD");
+          if (i < range) {
+            updatedMarkedDates[tempDate] = { color: "#222", textColor: "#FFFFFF" };
+          } else {
+            updatedMarkedDates[tempDate] = { endingDay: true, color: "#00B0BF", textColor: "#FFFFFF" };
+          }
+        }
+        setMarkedDates(updatedMarkedDates);
+        setIsStartDatePicked(false);
+        setStartDate("");
+      } else {
+        Alert.alert("Select an upcoming date!");
+      }
+    }
+  };
 
-//   return (
-//     <ScrollView style={sty.container}>
-//       <TouchableOpacity>
-//         <Text style={sty.skipbtn}>Skip</Text>
-//       </TouchableOpacity>
+  return (
+    <View style={styles.container}>
+        <View style={styles.selctImge}>
+        <Image
+          source={require('../Images/selectionPageImg.png')}
+          style={styles.selectionPageImg}
+        />
+        </View>
+        <View>
+            <Text style={styles.headerTextSlectionPage}>
+                Pick the Dates that you plan to visit Sri Lanka?
+            </Text>
+        </View>
+        <View>
+        <Calendar
+        minDate={new Date().toISOString().split("T")[0]}
+        monthFormat={"MMMM yyyy"}
+        markedDates={markedDates}
+        markingType={"period"}
+        onDayPress={onDayPress}
+      />
+        </View>
+      
+    </View>
+  );
+};
 
-//       <View style={sty.DatesPikerimge}>
-//         <Image
-//           source={require('../Images/pickerPageImg.png')}
-//           style={sty.DatesPikerPageimge}
-//         />
-//       </View>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    padding: 20,
+    justifyContent: "center",
+  },
+  headerTextSlectionPage: {
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: '700',
+    marginTop: 30,
+    color: '#2A2A2A',
+  },
+  selectionPageImg: {
+    width: 280,
+    height: 280,
+  },
+  selctImge: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
+});
 
-//       <Text style={sty.headerTextPikerPage}>
-//         Pick the Dates that you plan to visit Sri Lanka?
-//       </Text>
-
-//       <View style={sty.calendarContainer}>
-//         <CalendarPicker onDateChange={onDateChange} width={350} height={350} />
-
-//         <View>
-//           <Text>SELECTED DATE: {startDate}</Text>
-//         </View>
-//       </View>
-
-//       <TouchableOpacity onPress={() => {
-//             navigation.navigate('BudgetQuestionPage');
-//             console.log('Button pressed');}}>
-//         <Image
-//           source={require('../Images/selectionImg2.png')}
-//           style={sty.selectionPageImg1}
-//         />
-//      </TouchableOpacity>
-//     </ScrollView>
-//   );
-// };
-
-// const sty = StyleSheet.create({
-//   skipbtn: {
-//     color: 'black',
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//     textAlign: 'right',
-//     right: 20,
-//     marginTop: 20,
-//   },
-//   DatesPikerimge: {
-//     alignItems: 'center',
-//     marginTop: 20,
-//   },
-//   DatesPikerPageimge: {
-//     width: 240,
-//     height: 240,
-//   },
-//   headerTextPikerPage: {
-//     fontSize: 19,
-//     textAlign: 'center',
-//     fontWeight: '700',
-//     marginTop: 30,
-//     color: '#2A2A2A',
-//   },
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#FFFFFF',
-//   },
-//   calendarContainer: {
-//     alignItems: 'center',
-//     marginTop: 20,
-//   },
-//   selectionPageImg1: {
-//     width: 50,
-//     height: 50,
-//     marginTop: 5,
-//     left: 320,
-//     marginBottom: 20,
-//   },
-// });
-
-// export default DatesPickPage;
+export default DateRangePicker;
