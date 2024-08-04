@@ -13,6 +13,7 @@ import TagSelectionPage from '../Screens/TagSelectionPage'
 import BudgetQuestionPage from '../Screens/BudgetQuestionPage'
 import SigiriyaInfor from '../Screens/SigiriyaInfor'  
 import DatePicker from '../Screens/DatesPickPage'              
+import CategoryPage from '../Screens/CategoryPage'
 
 
 const Stack = createStackNavigator();
@@ -22,9 +23,17 @@ export default function AppNavigation() {
     <NavigationContainer >
         <Stack.Navigator screenOptions={{headerShown:false}}>
 
+
             <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
+
+          
+            
+            {/* this is the first screen  */}
+            
+            {/* <Stack.Screen name='LoadingScreen' component={LoadingScreen}/> 
+
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name='NavigationBar' component={NavigationBar}/> 
             <Stack.Screen name="BudgetQuestionPage" component={BudgetQuestionPage} />
@@ -32,7 +41,10 @@ export default function AppNavigation() {
             <Stack.Screen name="HotelDetails" component={HotelDetails} />
             
             <Stack.Screen name="DatesPickPage" component={DatePicker} />
-            <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/>
+            <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/> */}
+            <Stack.Screen name='CategoryPage' component={CategoryPage}/>
+
+            
     </Stack.Navigator>
     
     </NavigationContainer>
