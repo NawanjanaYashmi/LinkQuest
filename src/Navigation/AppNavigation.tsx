@@ -26,7 +26,7 @@ export default function AppNavigation() {
             
             {/* this is the first screen  */}
             
-            {/* <Stack.Screen name='LoadingScreen' component={LoadingScreen}/> 
+            <Stack.Screen name='LoadingScreen' component={LoadingScreen}/> 
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name='NavigationBar' component={NavigationBar}/> 
             <Stack.Screen name="BudgetQuestionPage" component={BudgetQuestionPage} />
@@ -35,7 +35,7 @@ export default function AppNavigation() {
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="DatesPickPage" component={DatePicker} />
-            <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/> */}
+            <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/> 
             <Stack.Screen name='CategoryPage' component={CategoryPage}/>
 
             
