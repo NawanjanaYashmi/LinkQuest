@@ -32,7 +32,6 @@ export default function AppNavigation() {
             
             {/* this is the first screen  */}
             
-            {/* <Stack.Screen name='LoadingScreen' component={LoadingScreen}/> 
 
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name='NavigationBar' component={NavigationBar}/> 
@@ -41,7 +40,7 @@ export default function AppNavigation() {
             <Stack.Screen name="HotelDetails" component={HotelDetails} />
             
             <Stack.Screen name="DatesPickPage" component={DatePicker} />
-            <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/> */}
+            <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/> 
             <Stack.Screen name='CategoryPage' component={CategoryPage}/>
 
             
