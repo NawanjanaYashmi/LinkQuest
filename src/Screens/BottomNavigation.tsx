@@ -10,7 +10,7 @@ const PromotionScreenRoute = () => <PromotionScreen />;
 
 const RecentsRoute = () => <Text>Recents</Text>;
 
-const NotificationsRoute = () =>  <Notification />;
+const NotificationsRoute = () =>  <Notification isNew={true} />;
 
 const NavigationBar = () => {
   const [index, setIndex] = React.useState(0);

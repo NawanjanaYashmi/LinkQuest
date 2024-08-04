@@ -8,6 +8,7 @@ import AppNavigation from './src/Navigation/AppNavigation';
 function App(): JSX.Element {
 
   return (
+    
       <AppNavigation/>
   );
 }

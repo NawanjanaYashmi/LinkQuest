@@ -1,33 +1,63 @@
 import Icon from "react-native-vector-icons/FontAwesome";
-import React from "react";
-import { Image, StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from "react-native";
-
-
+import React, { useState } from "react";
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ActivityIndicator } from "react-native";
+import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebaseconfig';
 
 const LoginScreen = () => {
-    return(
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [message, setMessage] = useState<string | null>(null);
+
+    const handleLogin = async () => {
+        setLoading(true);
+        setError(null);
+        setMessage(null);
+        if (!email || !password) {
+            setError('Please fill in all fields.');
+            setLoading(false); // Set loading to false on error
+            return;
+          }
+        
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            setMessage('User logged in successfully!');
+            navigation.navigate('NavigationBar');
+            
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
+    return (
         <View style={sty.container}>
-            <Image source={require('../Images/loginscreenLogo.png')} 
-            style={sty.logo} 
-            />
+            <Image source={require('../Images/loginscreenLogo.png')} style={sty.logo} />
 
             <View style={sty.NoheaderContainer}>
-                 <Text style={sty.Nologintexthead}>Enter your mobile number</Text>
+                <Text style={sty.Nologintexthead}>Enter your Email Address</Text>
             </View>
             <View style={sty.inputContainer}>
-                    <TextInput
-                            style={sty.input}
-                            placeholder="Phone Number"
-                            placeholderTextColor="#808080" 
-                    />
-                   <Icon name="user" size={20} style={sty.icon} />
-                   
-                    
+                <TextInput
+                    style={sty.input}
+                    placeholder="Email Address"
+                    placeholderTextColor="#808080"
+                    value={email}
+                    onChangeText={setEmail}
+                    autoCapitalize="none"
+                />
+                <Icon name="user" size={20} style={sty.icon} />
             </View>
 
-            {/* password part */}
+            {/* Password part */}
             <View style={sty.PwheaderContainer}>
-                 <Text style={sty.Pwlogintexthead}>Enter your password</Text>
+                <Text style={sty.Pwlogintexthead}>Enter your password</Text>
             </View>
             <View style={sty.inputContainer}>
                 <TextInput
@@ -35,45 +65,55 @@ const LoginScreen = () => {
                     placeholder="Password"
                     placeholderTextColor="#808080"
                     secureTextEntry={true}
+                    value={password}
+                    onChangeText={setPassword}
                 />
                 <Icon name="user" size={20} style={sty.icon} />
             </View>
 
-            {/* Login button part */}
-            <TouchableOpacity style={sty.loginbutton}>
-                <Text style={sty.loginbuttontext}>Login</Text>
-            </TouchableOpacity>
+            {error && <Text style={sty.error}>{error}</Text>}
+            {message && <Text style={sty.message}>{message}</Text>}
+            {loading ? (
+                <ActivityIndicator style={sty.loader} size="large" color="#75A82B" />
+            ) : (
+                <TouchableOpacity style={sty.loginbutton} onPress={handleLogin}>
+                    <Text style={sty.loginbuttontext}>Log in</Text>
+                </TouchableOpacity>
+            )}
 
-            {/* Dont have an account */}
-
-            <TouchableOpacity >
-                <Text style={sty.donthaveacctext}>Don't have an account? <Text style={sty.donthavesignup}>Sign Up</Text> </Text>
+            {/* Don't have an account */}
+            <TouchableOpacity>
+                <Text style={sty.donthaveacctext}
+                onPress={()=>{
+                    navigation.navigate('SignUpScreen');
+                }}
+                >
+                    Don't have an account? <Text style={sty.donthavesignup}>Sign up</Text>
+                </Text>
             </TouchableOpacity>
 
             <Text style={sty.textor}>or</Text>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+                navigation.navigate('NavigationBar');
+                
+            }}>
                 <Text style={sty.guestbtn}>Continue as Guest</Text>
             </TouchableOpacity>
-
-            
-          
         </View>
     );
-}
+};
 
 const sty = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
         alignItems: 'center',
-        
-        
     },
     logo: {
         width: 200,
-        height: 200, 
-        resizeMode: 'contain', 
+        height: 200,
+        resizeMode: 'contain',
         alignItems: 'center',
         marginTop: 40,
     },
@@ -89,31 +129,28 @@ const sty = StyleSheet.create({
     },
     input: {
         flex: 1,
+        color: '#000',
     },
     NoheaderContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        paddingRight: 105, 
-        
+        paddingRight: 105,
     },
     Nologintexthead: {
-        fontSize: 15, 
+        fontSize: 15,
         fontWeight: '500',
         color: '#2A2A2A',
     },
-
     PwheaderContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        paddingRight: 150, 
+        paddingRight: 150,
         marginTop: 20,
-        
-        
     },
     Pwlogintexthead: {
-        fontSize: 15, 
+        fontSize: 15,
         fontWeight: '500',
         color: '#2A2A2A',
     },
@@ -136,13 +173,13 @@ const sty = StyleSheet.create({
         fontWeight: '400',
         marginTop: 10,
     },
-    donthavesignup:{
+    donthavesignup: {
         color: '#75A82B',
         fontSize: 15,
         fontWeight: 'bold',
-        textDecorationLine: 'underline',     
+        textDecorationLine: 'underline',
     },
-    textor:{
+    textor: {
         color: '#2A2A2A',
         fontSize: 15,
         fontWeight: '500',
@@ -158,11 +195,17 @@ const sty = StyleSheet.create({
     icon: {
         marginRight: 10,
     },
-      
-   
-   
-    
-
-})
+    error: {
+        color: 'red',
+        marginBottom: 12,
+    },
+    message: {
+        color: 'green',
+        marginBottom: 12,
+    },
+    loader: {
+        marginTop: 20,
+    },
+});
 
 export default LoginScreen;
