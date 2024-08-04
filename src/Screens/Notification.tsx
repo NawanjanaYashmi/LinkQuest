@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import { View } from 'react-native';
-import {  Image, Text } from 'react-native-elements';
-import { Header, Icon } from 'react-native-elements';
-import {Card} from 'react-native-paper';
-import { ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import { Image, Text, Header, Icon } from 'react-native-elements';
+import { Card } from 'react-native-paper';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
-const Notification = ({ navigation, isNew }: any) => {
+interface NotificationProps {
+  isNew: boolean;
+}
+
+const Notification: React.FC<NotificationProps> = ({ isNew }) => {
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
   return (
-    
     <ScrollView style={sty.container}>
       <Header
         leftComponent={
@@ -16,7 +19,7 @@ const Notification = ({ navigation, isNew }: any) => {
             name="west"
             type="MaterialIcons"
             color="#2A2A2A"
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate('NavigationBar')}
           />
         }
         centerComponent={{
@@ -25,129 +28,126 @@ const Notification = ({ navigation, isNew }: any) => {
         }}
         backgroundColor="white"
       />
-      
+
       {/* Today Notifications n Text */}
       <Text style={sty.todayText}>Today</Text>
-       
-      {/* Notification Card  01*/}
+
+      {/* Notification Card 01 */}
       <View style={sty.IconAndCardViewContainer}>
         <View style={[sty.icon, { backgroundColor: isNew ? 'gray' : '#75A82B' }]} />
 
         <Card style={sty.customCardPackage}>
-           <View style={sty.iconAndText}>
-              <Image source={require('../Images/hotelicon.png')} style={{width: 30, height: 30,marginTop:15, }}/>
-              <View style={sty.headerAndInfor}>
-                <Text style={sty.cardtitle}>Hotel Booking</Text>
-                <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
-                <View style={sty.dateAndTime}>
-                  <Text style={sty.textAndTimeText}>12:45 PM</Text>
-                  <Text style={sty.textAndTimeText}>August 12, 2023</Text>
-                </View>
-              </View>      
-           </View>   
+          <View style={sty.iconAndText}>
+            <Image source={require('../Images/hotelicon.png')} style={{ width: 30, height: 30, marginTop: 15 }} />
+            <View style={sty.headerAndInfor}>
+              <Text style={sty.cardtitle}>Hotel Booking</Text>
+              <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
+              <View style={sty.dateAndTime}>
+                <Text style={sty.textAndTimeText}>12:45 PM</Text>
+                <Text style={sty.textAndTimeText}>August 12, 2023</Text>
+              </View>
+            </View>
+          </View>
         </Card>
       </View>
 
-       {/* Notification Card  02*/}
-       <View style={sty.IconAndCardViewContainer}>
+      {/* Notification Card 02 */}
+      <View style={sty.IconAndCardViewContainer}>
         <View style={[sty.icon, { backgroundColor: isNew ? 'gray' : '#75A82B' }]} />
 
         <Card style={sty.customCardPackage}>
-           <View style={sty.iconAndText}>
-              <Image source={require('../Images/planeicon.png')} style={{width: 25, height: 25,marginTop:15, }}/>
-              <View style={sty.headerAndInfor}>
-                <Text style={sty.cardtitle}>Flight Booking</Text>
-                <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
-                <View style={sty.dateAndTime}>
-                  <Text style={sty.textAndTimeText}>12:45 PM</Text>
-                  <Text style={sty.textAndTimeText}>August 12, 2023</Text>
-                </View>
-              </View>      
-           </View>   
+          <View style={sty.iconAndText}>
+            <Image source={require('../Images/planeicon.png')} style={{ width: 25, height: 25, marginTop: 15 }} />
+            <View style={sty.headerAndInfor}>
+              <Text style={sty.cardtitle}>Flight Booking</Text>
+              <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
+              <View style={sty.dateAndTime}>
+                <Text style={sty.textAndTimeText}>12:45 PM</Text>
+                <Text style={sty.textAndTimeText}>August 12, 2023</Text>
+              </View>
+            </View>
+          </View>
         </Card>
       </View>
 
+      {/* Today Notifications n Text */}
+      <Text style={sty.todayText}>Yesterday</Text>
 
+      {/* Notification Card 03 */}
+      <View style={sty.IconAndCardViewContainer}>
+        <View style={[sty.icon, { backgroundColor: isNew ? 'green' : 'gray' }]} />
 
-       {/* Today Notifications n Text */}
-       <Text style={sty.todayText}>Yesterday</Text>
-       
-       {/* Notification Card 03 */}
-       <View style={sty.IconAndCardViewContainer}>
-         <View style={[sty.icon, { backgroundColor: isNew ? 'green' : 'gray' }]} />
- 
-         <Card style={sty.customCardPackage}>
-            <View style={sty.iconAndText}>
-               <Image source={require('../Images/loicon.png')} style={{width: 30, height: 30,marginTop:15, }}/>
-               <View style={sty.headerAndInfor}>
-                 <Text style={sty.cardtitle}>App Update</Text>
-                 <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
-                 <View style={sty.dateAndTime}>
-                   <Text style={sty.textAndTimeText}>12:45 PM</Text>
-                   <Text style={sty.textAndTimeText}>August 12, 2023</Text>
-                 </View>
-               </View>      
-            </View>   
-         </Card>
-       </View>
- 
-        {/* Notification Card 04 */}
-        <View style={sty.IconAndCardViewContainer}>
-         <View style={[sty.icon, { backgroundColor: isNew ? 'green' : 'gray' }]} />
- 
-         <Card style={sty.customCardPackage}>
-            <View style={sty.iconAndText}>
-               <Image source={require('../Images/planeicon.png')} style={{width: 25, height: 25,marginTop:15, }}/>
-               <View style={sty.headerAndInfor}>
-                 <Text style={sty.cardtitle}>Flight Booking</Text>
-                 <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
-                 <View style={sty.dateAndTime}>
-                   <Text style={sty.textAndTimeText}>12:45 PM</Text>
-                   <Text style={sty.textAndTimeText}>August 12, 2023</Text>
-                 </View>
-               </View>      
-            </View>   
-         </Card>
-       </View>
+        <Card style={sty.customCardPackage}>
+          <View style={sty.iconAndText}>
+            <Image source={require('../Images/loicon.png')} style={{ width: 30, height: 30, marginTop: 15 }} />
+            <View style={sty.headerAndInfor}>
+              <Text style={sty.cardtitle}>App Update</Text>
+              <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
+              <View style={sty.dateAndTime}>
+                <Text style={sty.textAndTimeText}>12:45 PM</Text>
+                <Text style={sty.textAndTimeText}>August 12, 2023</Text>
+              </View>
+            </View>
+          </View>
+        </Card>
+      </View>
 
-       {/* Notification Card 05*/}
-       <View style={sty.IconAndCardViewContainer}>
-         <View style={[sty.icon, { backgroundColor: isNew ? 'green' : 'gray' }]} />
- 
-         <Card style={sty.customCardPackage}>
-            <View style={sty.iconAndText}>
-               <Image source={require('../Images/hotelicon.png')} style={{width: 30, height: 30,marginTop:15, }}/>
-               <View style={sty.headerAndInfor}>
-                 <Text style={sty.cardtitle}>Hotel Booking</Text>
-                 <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
-                 <View style={sty.dateAndTime}>
-                   <Text style={sty.textAndTimeText}>12:45 PM</Text>
-                   <Text style={sty.textAndTimeText}>August 12, 2023</Text>
-                 </View>
-               </View>      
-            </View>   
-         </Card>
-       </View>
+      {/* Notification Card 04 */}
+      <View style={sty.IconAndCardViewContainer}>
+        <View style={[sty.icon, { backgroundColor: isNew ? 'green' : 'gray' }]} />
 
-       {/* Notification Card 06 */}
-       <View style={sty.IconAndCardViewContainer}>
-         <View style={[sty.icon, { backgroundColor: isNew ? 'green' : 'gray' }]} />
- 
-         <Card style={sty.customCardPackage}>
-            <View style={sty.iconAndText}>
-               <Image source={require('../Images/hotelicon.png')} style={{width: 30, height: 30,marginTop:15, }}/>
-               <View style={sty.headerAndInfor}>
-                 <Text style={sty.cardtitle}>Hotel Booking</Text>
-                 <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
-                 <View style={sty.dateAndTime}>
-                   <Text style={sty.textAndTimeText}>12:45 PM</Text>
-                   <Text style={sty.textAndTimeText}>August 12, 2023</Text>
-                 </View>
-               </View>      
-            </View>   
-         </Card>
-       </View>
+        <Card style={sty.customCardPackage}>
+          <View style={sty.iconAndText}>
+            <Image source={require('../Images/planeicon.png')} style={{ width: 25, height: 25, marginTop: 15 }} />
+            <View style={sty.headerAndInfor}>
+              <Text style={sty.cardtitle}>Flight Booking</Text>
+              <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
+              <View style={sty.dateAndTime}>
+                <Text style={sty.textAndTimeText}>12:45 PM</Text>
+                <Text style={sty.textAndTimeText}>August 12, 2023</Text>
+              </View>
+            </View>
+          </View>
+        </Card>
+      </View>
 
+      {/* Notification Card 05 */}
+      <View style={sty.IconAndCardViewContainer}>
+        <View style={[sty.icon, { backgroundColor: isNew ? 'green' : 'gray' }]} />
+
+        <Card style={sty.customCardPackage}>
+          <View style={sty.iconAndText}>
+            <Image source={require('../Images/hotelicon.png')} style={{ width: 30, height: 30, marginTop: 15 }} />
+            <View style={sty.headerAndInfor}>
+              <Text style={sty.cardtitle}>Hotel Booking</Text>
+              <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
+              <View style={sty.dateAndTime}>
+                <Text style={sty.textAndTimeText}>12:45 PM</Text>
+                <Text style={sty.textAndTimeText}>August 12, 2023</Text>
+              </View>
+            </View>
+          </View>
+        </Card>
+      </View>
+
+      {/* Notification Card 06 */}
+      <View style={sty.IconAndCardViewContainer}>
+        <View style={[sty.icon, { backgroundColor: isNew ? 'green' : 'gray' }]} />
+
+        <Card style={sty.customCardPackage}>
+          <View style={sty.iconAndText}>
+            <Image source={require('../Images/hotelicon.png')} style={{ width: 30, height: 30, marginTop: 15 }} />
+            <View style={sty.headerAndInfor}>
+              <Text style={sty.cardtitle}>Hotel Booking</Text>
+              <Text style={sty.carddescription}>Lorem ipsum dolor sit amet this for the consectetur. Suspendisse quam...</Text>
+              <View style={sty.dateAndTime}>
+                <Text style={sty.textAndTimeText}>12:45 PM</Text>
+                <Text style={sty.textAndTimeText}>August 12, 2023</Text>
+              </View>
+            </View>
+          </View>
+        </Card>
+      </View>
     </ScrollView>
   );
 };
@@ -156,13 +156,12 @@ const sty = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FDFDFD',
-
   },
   todayText: {
     fontSize: 14,
     color: 'gray',
     paddingTop: 5,
-    paddingLeft: 40
+    paddingLeft: 40,
   },
   IconAndCardViewContainer: {
     paddingTop: 5,
@@ -177,7 +176,6 @@ const sty = StyleSheet.create({
     borderRadius: 10,
     marginRight: 10,
     overflow: 'hidden',
-   
   },
   customCardPackage: {
     width: 340,
@@ -185,7 +183,7 @@ const sty = StyleSheet.create({
     borderColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor:'#FFFFFF',
+    backgroundColor: '#FFFFFF',
   },
   cardtitle: {
     fontSize: 15,
@@ -198,27 +196,25 @@ const sty = StyleSheet.create({
     marginBottom: 5,
     textAlign: 'justify',
     color: '#696969',
-    
   },
-  iconAndText:{
+  iconAndText: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 10,
   },
-  headerAndInfor:{
+  headerAndInfor: {
     paddingLeft: 20,
     marginTop: 10,
   },
-  dateAndTime:{
+  dateAndTime: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 3,
   },
-  textAndTimeText:{
+  textAndTimeText: {
     fontSize: 12,
     color: '#888888',
-  }
-
+  },
 });
 
 export default Notification;

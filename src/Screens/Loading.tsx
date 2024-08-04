@@ -10,7 +10,7 @@ const Loading = () => {
       // Navigate to the next screen
       navigation.reset({
         index: 0,
-        routes: [{ name: 'NavigationBar' as never }],
+        routes: [{ name: 'SignUpScreen' as never }],
       });
     }, 5000); // 5 seconds
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1086206763805",
+    "project_id": "linkquest-66cac",
+    "storage_bucket": "linkquest-66cac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086206763805:android:b4e4a5823afbc97fdc37f4",
+        "android_client_info": {
+          "package_name": "com.linkquest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086206763805-c702vpspr6g0hf38pn5bubkn79944q6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXn2msB7vYFoid-_7G7wQdIVSSUE3mBNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086206763805-c702vpspr6g0hf38pn5bubkn79944q6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
