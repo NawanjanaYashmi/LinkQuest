@@ -37,18 +37,29 @@ const HomeScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require('../Images/homeimg.png')}
-          style={styles.homescreenImg}
-        />
-        <TouchableOpacity
-          style={styles.iconButton}
-          onPress={() => navigation.navigate('UserProfile')}
-        >
-          <Icon name="ellipsis-v" size={24} color="#FFFFFF" />
-        </TouchableOpacity>
-      </View>
+
+      <ScrollView>
+      <View style={sty.imageContainer}>
+          <Image
+            source={require('../Images/homeimg.png')}
+            style={sty.homescreenImg}
+          />
+          {/* Menu Icon */}
+          <TouchableOpacity style={sty.menuIcon} onPress={() => navigation.navigate('UserProfile')}}>
+            <Image
+              source={require('../Images/menuimg.png')}
+              style={sty.iconStyle}
+            />
+          </TouchableOpacity>
+          {/* Profile Icon */}
+          <TouchableOpacity style={sty.profileIcon} onPress={() => {}}>
+            <Image
+              source={require('../Images/profileimg.png')}
+              style={sty.iconStyle}
+            />
+          </TouchableOpacity>
+        </View>
+
 
       <ScrollView>
         <View style={styles.stylerowOne}>
@@ -61,9 +72,11 @@ const HomeScreen = () => {
             }}>
             Categories
           </Text>
+
           <TouchableOpacity onPress={() => {
             navigation.navigate('CategoryPage');
           }}>
+
             <Text style={{ color: '#75A82B', fontWeight: '700', right: 15 }}>
               See All
             </Text>
@@ -234,13 +247,26 @@ const styles = StyleSheet.create({
   imageContainer: {
     position: 'relative',
   },
-  iconButton: {
+
+  menuIcon: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    width: 35,
+    height: 35,
+  },
+  profileIcon: {
     position: 'absolute',
     top: 10,
     right: 10,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    borderRadius: 20,
-    padding: 10,
+    width: 35,
+    height: 35,
+  },
+  iconStyle: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+
   },
   stylerowOne: {
     flexDirection: 'row',

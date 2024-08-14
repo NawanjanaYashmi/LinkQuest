@@ -27,7 +27,10 @@ const LoginScreen = () => {
             await signInWithEmailAndPassword(auth, email, password);
             await AsyncStorage.setItem('userEmail', email); // Save email to AsyncStorage
             setMessage('User logged in successfully!');
-            navigation.navigate('NavigationBar');
+
+            navigation.navigate('OnBoardScreenOne');
+            
+
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -40,6 +43,7 @@ const LoginScreen = () => {
     return (
         <View style={sty.container}>
             <Image source={require('../Images/loginscreenLogo.png')} style={sty.logo} />
+            <Text style={sty.LoginTopictext}>Login</Text>
 
             <View style={sty.NoheaderContainer}>
                 <Text style={sty.Nologintexthead}>Enter your Email Address</Text>
@@ -69,7 +73,7 @@ const LoginScreen = () => {
                     value={password}
                     onChangeText={setPassword}
                 />
-                <Icon name="user" size={20} style={sty.icon} />
+                <Icon name="lock" size={20} style={sty.icon} />
             </View>
 
             {error && <Text style={sty.error}>{error}</Text>}
@@ -117,7 +121,19 @@ const sty = StyleSheet.create({
         resizeMode: 'contain',
         alignItems: 'center',
         marginTop: 40,
+        
     },
+
+    LoginTopictext: {
+        fontSize: 25,
+        color: '#75A82B',
+        fontWeight: '800',
+        marginTop:0,
+        marginBottom: 30,
+
+
+      },
+
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
