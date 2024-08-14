@@ -4,6 +4,7 @@ import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ActivityInd
 import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseconfig';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -20,13 +21,13 @@ const LoginScreen = () => {
             setError('Please fill in all fields.');
             setLoading(false); // Set loading to false on error
             return;
-          }
+        }
         
         try {
             await signInWithEmailAndPassword(auth, email, password);
+            await AsyncStorage.setItem('userEmail', email); // Save email to AsyncStorage
             setMessage('User logged in successfully!');
             navigation.navigate('NavigationBar');
-            
         } catch (err: any) {
             setError(err.message);
         } finally {

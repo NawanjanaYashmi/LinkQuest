@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, ScrollView, View, Animated } from 'react-
 import { Image, Text } from 'react-native-elements';
 import { FAB } from 'react-native-paper';
 import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library
 
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -36,13 +37,21 @@ const HomeScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView>
+      <View style={styles.imageContainer}>
         <Image
           source={require('../Images/homeimg.png')}
-          style={sty.homescreenImg}
+          style={styles.homescreenImg}
         />
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => navigation.navigate('UserProfile')}
+        >
+          <Icon name="ellipsis-v" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+      </View>
 
-        <View style={sty.stylerowOne}>
+      <ScrollView>
+        <View style={styles.stylerowOne}>
           <Text
             style={{
               color: '#2A2A2A',
@@ -53,7 +62,6 @@ const HomeScreen = () => {
             Categories
           </Text>
           <TouchableOpacity onPress={() => {
-            //CategoryPage
             navigation.navigate('CategoryPage');
           }}>
             <Text style={{ color: '#75A82B', fontWeight: '700', right: 15 }}>
@@ -63,7 +71,7 @@ const HomeScreen = () => {
         </View>
 
         <View style={{ flexDirection: 'row', marginTop: 8 }}>
-          <TouchableOpacity style={sty.sectionBtns}>
+          <TouchableOpacity style={styles.sectionBtns}>
             <Image
               source={require('../Images/cato1.png')}
               style={{ width: 30, height: 30, marginTop: 3 }}
@@ -79,7 +87,7 @@ const HomeScreen = () => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={sty.sectionBtns}>
+          <TouchableOpacity style={styles.sectionBtns}>
             <Image
               source={require('../Images/cato2.png')}
               style={{ width: 30, height: 30, marginTop: 3 }}
@@ -95,7 +103,7 @@ const HomeScreen = () => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={sty.sectionBtns}>
+          <TouchableOpacity style={styles.sectionBtns}>
             <Image
               source={require('../Images/cato3.png')}
               style={{ width: 30, height: 30, marginTop: 3 }}
@@ -111,7 +119,7 @@ const HomeScreen = () => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={sty.sectionBtns}>
+          <TouchableOpacity style={styles.sectionBtns}>
             <Image
               source={require('../Images/cato4.png')}
               style={{ width: 30, height: 30, marginTop: 3 }}
@@ -128,7 +136,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={sty.stylerowOne}>
+        <View style={styles.stylerowOne}>
           <Text
             style={{
               color: '#2A2A2A',
@@ -152,22 +160,22 @@ const HomeScreen = () => {
               console.log('Button pressed');
             }}>
               <Image source={require('../Images/sigiriya.png')} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, margin: 15 }} />
-              <Text style={sty.imgText}>Sigiriya</Text>
+              <Text style={styles.imgText}>Sigiriya</Text>
             </TouchableOpacity>
 
             <TouchableOpacity>
               <Image source={require('../Images/lake.png')} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, marginRight: 15 }} />
-              <Text style={sty.imgText}>Gregory Lake</Text>
+              <Text style={styles.imgText}>Gregory Lake</Text>
             </TouchableOpacity>
 
             <TouchableOpacity>
               <Image source={require('../Images/sigiriya.png')} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, marginRight: 15 }} />
-              <Text style={sty.imgText}>Sigiriya</Text>
+              <Text style={styles.imgText}>Sigiriya</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
 
-        <View style={sty.stylerowOne}>
+        <View style={styles.stylerowOne}>
           <Text
             style={{
               color: '#2A2A2A',
@@ -188,25 +196,25 @@ const HomeScreen = () => {
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity>
               <Image source={require('../Images/eventPic1.png')} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, margin: 15 }} />
-              <Text style={sty.imgText}>ElleTour</Text>
+              <Text style={styles.imgText}>ElleTour</Text>
             </TouchableOpacity>
 
             <TouchableOpacity>
               <Image source={require('../Images/eventPic2.png')} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, marginRight: 15 }} />
-              <Text style={sty.imgText}>Perahera</Text>
+              <Text style={styles.imgText}>Perahera</Text>
             </TouchableOpacity>
 
             <TouchableOpacity>
               <Image source={require('../Images/eventPic3.png')} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, marginRight: 15 }} />
-              <Text style={sty.imgText}>Galle Fort</Text>
+              <Text style={styles.imgText}>Galle Fort</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
       </ScrollView>
 
-      <Animated.View style={[sty.fabContainer, animatedStyle]}>
+      <Animated.View style={[styles.fabContainer, animatedStyle]}>
         <FAB
-          style={sty.fab}
+          style={styles.fab}
           icon="plus"
           onPress={() => {
             navigation.navigate('TagSelectionPage');
@@ -217,11 +225,22 @@ const HomeScreen = () => {
   );
 };
 
-const sty = StyleSheet.create({
+const styles = StyleSheet.create({
   homescreenImg: {
     width: '100%',
     height: 200,
     resizeMode: 'cover',
+  },
+  imageContainer: {
+    position: 'relative',
+  },
+  iconButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderRadius: 20,
+    padding: 10,
   },
   stylerowOne: {
     flexDirection: 'row',

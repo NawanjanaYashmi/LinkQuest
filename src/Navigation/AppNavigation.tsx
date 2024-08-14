@@ -14,7 +14,7 @@ import BudgetQuestionPage from '../Screens/BudgetQuestionPage'
 import SigiriyaInfor from '../Screens/SigiriyaInfor'  
 import DatePicker from '../Screens/DatesPickPage'              
 import CategoryPage from '../Screens/CategoryPage'
-
+import UserProfile from '../Screens/UserProfile'
 
 const Stack = createStackNavigator();
 
@@ -27,7 +27,7 @@ export default function AppNavigation() {
             <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
-
+            <Stack.Screen name="UserProfile" component={UserProfile} />
           
             
             {/* this is the first screen  */}
