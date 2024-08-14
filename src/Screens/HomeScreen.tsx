@@ -37,10 +37,26 @@ const HomeScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
-        <Image
-          source={require('../Images/homeimg.png')}
-          style={sty.homescreenImg}
-        />
+      <View style={sty.imageContainer}>
+          <Image
+            source={require('../Images/homeimg.png')}
+            style={sty.homescreenImg}
+          />
+          {/* Menu Icon */}
+          <TouchableOpacity style={sty.menuIcon} onPress={() => {}}>
+            <Image
+              source={require('../Images/menuimg.png')}
+              style={sty.iconStyle}
+            />
+          </TouchableOpacity>
+          {/* Profile Icon */}
+          <TouchableOpacity style={sty.profileIcon} onPress={() => {}}>
+            <Image
+              source={require('../Images/profileimg.png')}
+              style={sty.iconStyle}
+            />
+          </TouchableOpacity>
+        </View>
 
         <View style={sty.stylerowOne}>
           <Text
@@ -219,6 +235,28 @@ const sty = StyleSheet.create({
     width: '100%',
     height: 200,
     resizeMode: 'cover',
+  },
+  imageContainer: {
+    position: 'relative',
+  },
+  menuIcon: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    width: 35,
+    height: 35,
+  },
+  profileIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 35,
+    height: 35,
+  },
+  iconStyle: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   stylerowOne: {
     flexDirection: 'row',
