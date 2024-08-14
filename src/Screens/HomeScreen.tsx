@@ -45,7 +45,7 @@ const HomeScreen = () => {
             style={sty.homescreenImg}
           />
           {/* Menu Icon */}
-          <TouchableOpacity style={sty.menuIcon} onPress={() => navigation.navigate('UserProfile')}}>
+          <TouchableOpacity style={sty.menuIcon} onPress={() => navigation.navigate('UserProfile')}>
             <Image
               source={require('../Images/menuimg.png')}
               style={sty.iconStyle}
