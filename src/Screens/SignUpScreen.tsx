@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Icon from "react-native-vector-icons/FontAwesome";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseconfig';
 import { TouchableOpacity, TextInput, Image, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
@@ -51,7 +52,7 @@ const SignUpScreen = () => {
   return (
     <View style={sty.container}>
       <Image source={require('../Images/loginscreenLogo.png')} style={sty.logo} />
-      <Text style={sty.SignUpTopictext}>Sign Up</Text>
+      <Text style={sty.SignUpTopictext}>Create Account</Text>
 
       {/* Sign Up Email Address */}
       <View style={sty.SignUpNoheaderContainer}>
@@ -65,7 +66,9 @@ const SignUpScreen = () => {
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
+
         />
+         <Icon name="user" size={20} style={sty.icon} />
       </View>
 
       {/* Password part */}
@@ -81,6 +84,7 @@ const SignUpScreen = () => {
           placeholderTextColor="#808080"
           secureTextEntry
         />
+         <Icon name="lock" size={20} style={sty.icon} />
       </View>
 
       {error && <Text style={sty.error}>{error}</Text>}
@@ -118,7 +122,8 @@ const sty = StyleSheet.create({
     marginTop: 40,
   },
   SignUpTopictext: {
-    fontSize: 20,
+    fontSize: 25,
+    color: '#75A82B',
     fontWeight: '800',
   },
   SignUpNoheaderContainer: {
