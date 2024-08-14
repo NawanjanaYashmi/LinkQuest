@@ -31,9 +31,11 @@ export default function AppNavigation() {
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
 
+
             <Stack.Screen name='OnBoardScreenOne' component={OnBoardScreenOne}/>
             <Stack.Screen name='OnBoardScreenTwo' component={OnBoardScreenTwo}/>
             <Stack.Screen name='OnBoardScreenThree' component={OnBoardScreenThree}/>
+
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name='NavigationBar' component={NavigationBar}/> 
 
