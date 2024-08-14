@@ -39,29 +39,29 @@ const HomeScreen = () => {
     <View style={{ flex: 1 }}>
 
       <ScrollView>
-      <View style={sty.imageContainer}>
+      <View style={styles.imageContainer}>
           <Image
             source={require('../Images/homeimg.png')}
-            style={sty.homescreenImg}
+            style={styles.homescreenImg}
           />
           {/* Menu Icon */}
-          <TouchableOpacity style={sty.menuIcon} onPress={() => navigation.navigate('UserProfile')}>
+          <TouchableOpacity style={styles.menuIcon} onPress={() => navigation.navigate('UserProfile')}>
             <Image
               source={require('../Images/menuimg.png')}
-              style={sty.iconStyle}
+              style={styles.iconStyle}
             />
           </TouchableOpacity>
           {/* Profile Icon */}
-          <TouchableOpacity style={sty.profileIcon} onPress={() => {}}>
+          <TouchableOpacity style={styles.profileIcon} onPress={() => {}}>
             <Image
               source={require('../Images/profileimg.png')}
-              style={sty.iconStyle}
+              style={styles.iconStyle}
             />
           </TouchableOpacity>
         </View>
 
 
-      <ScrollView>
+      
         <View style={styles.stylerowOne}>
           <Text
             style={{
