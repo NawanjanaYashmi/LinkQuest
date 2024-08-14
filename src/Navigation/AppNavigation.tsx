@@ -14,10 +14,10 @@ import BudgetQuestionPage from '../Screens/BudgetQuestionPage'
 import SigiriyaInfor from '../Screens/SigiriyaInfor'  
 import DatePicker from '../Screens/DatesPickPage'              
 import CategoryPage from '../Screens/CategoryPage'
+import UserProfile from '../Screens/UserProfile'
 import OnBoardScreenOne from '../Screens/OnBoardScreenOne'
 import OnBoardScreenTwo from '../Screens/OnBoardScreenTwo'
 import OnBoardScreenThree from '../Screens/OnBoardScreenThree'
-
 
 const Stack = createStackNavigator();
 
@@ -31,10 +31,18 @@ export default function AppNavigation() {
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
 
+            <Stack.Screen name="UserProfile" component={UserProfile} />
+          
+            
+            {/* this is the first screen  */}
+            
+
+
 
             <Stack.Screen name='OnBoardScreenOne' component={OnBoardScreenOne}/>
             <Stack.Screen name='OnBoardScreenTwo' component={OnBoardScreenTwo}/>
             <Stack.Screen name='OnBoardScreenThree' component={OnBoardScreenThree}/>
+
 
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name='NavigationBar' component={NavigationBar}/> 

@@ -18,17 +18,10 @@ const PromotionScreen = ({navigation}: any) => {
   return (
     <ScrollView>
       <Header
-        leftComponent={
-            <Icon
-              name="west"
-              type="MaterialIcons"
-              color="#2A2A2A"
-              onPress={() => navigation.goBack()}
-            />
-          }
+        
         centerComponent={{
           text: 'Promotions',
-          style: {color: '#2A2A2A', fontSize: 20, fontWeight: 'bold'},
+          style: {color: '#2A2A2A', fontSize: 20, fontWeight: 'bold',marginTop: 10},
         }}
         backgroundColor="white"
       />
