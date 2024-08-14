@@ -34,7 +34,7 @@ const NavigationBar = () => {
       renderScene={renderScene}
       barStyle={{ backgroundColor: '#FEFEFE' }}
       activeColor="#75A82B"
-      inactiveColor="#aAaAA"
+      inactiveColor="#aAaaAA"
       theme={{
         ...theme,
         colors: {
