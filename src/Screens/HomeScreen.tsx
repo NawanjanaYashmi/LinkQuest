@@ -52,7 +52,7 @@ const HomeScreen = () => {
             }}>
             Categories
           </Text>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={()=>{navigation.navigate('CategoryPage');}}>
             <Text style={{ color: '#75A82B', fontWeight: '700', right: 15 }}>
               See All
             </Text>

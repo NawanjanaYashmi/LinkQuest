@@ -16,6 +16,7 @@ import DatePicker from '../Screens/DatesPickPage'
 import CategoryPage from '../Screens/CategoryPage'
 import OnBoardScreenOne from '../Screens/OnBoardScreenOne'
 import OnBoardScreenTwo from '../Screens/OnBoardScreenTwo'
+import OnBoardScreenThree from '../Screens/OnBoardScreenThree'
 
 
 const Stack = createStackNavigator();
@@ -26,28 +27,25 @@ export default function AppNavigation() {
         <Stack.Navigator screenOptions={{headerShown:false}}>
 
 
-            {/* <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
+            <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
 
-          
-            
-         
-            
-
-
+            <Stack.Screen name='OnBoardScreenOne' component={OnBoardScreenOne}/>
+            <Stack.Screen name='OnBoardScreenTwo' component={OnBoardScreenTwo}/>
+            <Stack.Screen name='OnBoardScreenThree' component={OnBoardScreenThree}/>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name='NavigationBar' component={NavigationBar}/> 
+
             <Stack.Screen name="BudgetQuestionPage" component={BudgetQuestionPage} />
             <Stack.Screen name="TagSelectionPage" component={TagSelectionPage} />
             <Stack.Screen name="HotelDetails" component={HotelDetails} />
             
             <Stack.Screen name="DatesPickPage" component={DatePicker} />
             <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/> 
-            <Stack.Screen name='CategoryPage' component={CategoryPage}/> */}
+            <Stack.Screen name='CategoryPage' component={CategoryPage}/>
 
-            {/* <Stack.Screen name='OnBoardScreenOne' component={OnBoardScreenOne}/> */}
-            <Stack.Screen name='OnBoardScreenTwo' component={OnBoardScreenTwo}/>
+           
 
             
     </Stack.Navigator>

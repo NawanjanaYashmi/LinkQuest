@@ -25,7 +25,7 @@ const LoginScreen = () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             setMessage('User logged in successfully!');
-            navigation.navigate('NavigationBar');
+            navigation.navigate('OnBoardScreenOne');
             
         } catch (err: any) {
             setError(err.message);

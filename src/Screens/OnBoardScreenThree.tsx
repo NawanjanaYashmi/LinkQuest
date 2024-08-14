@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
 
-const OnBoardScreenOne = () => {
-  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+const OnBoardScreenThree = () => {
+    const navigation = useNavigation<NavigationProp<ParamListBase>>();
     return (
         <View style={sty.container}>
           <TouchableOpacity style={sty.skipButton} onPress={()=>{navigation.navigate('NavigationBar');}}>
@@ -15,30 +15,30 @@ const OnBoardScreenOne = () => {
 
           <View style={sty.centerContent}>
             <Image
-             source={require('../Images/selectionPageImg.png')}
+             source={require('../Images/BudgetQuestionImg.png')}
               style={sty.bigImage}
             />
 
             <Text style={sty.description1}>
-            Explore The World With TourPlace
+            Plan Your Dream Trip With Tourplace 
             </Text>
 
             <Text style={sty.description2}>
-            Discover the wonders of the world with our comprehensive tour guide app. Explore popular tourist attractions, hidden gems, and cultural hotspots with detailed information and captivating images
+            Experience hassle-free travel with real-time updates, offline maps, and local recommendations. Stay informed, stay safe, and enjoy your adventure to the fullest with our app
             </Text>
           </View>
           
           <View style={sty.bottomRow}>
             <Image
-              source={require('../Images/selectionPageImg1.png')}
+              source={require('../Images/onboardnextunder3.png')}
               style={sty.smallImage}
             />
-            <TouchableOpacity style={sty.circleButton}  onPress={()=>{navigation.navigate('OnBoardScreenTwo');}}>
-              <Image
-                source={require('../Images/selectionImg2.png')}
-                style={sty.circleImage}
-              />
-            </TouchableOpacity>
+            <TouchableOpacity style={sty.circleButton} onPress={()=>{navigation.navigate('NavigationBar');}}>
+          <Image
+            source={require('../Images/selectionImg2.png')}
+            style={sty.circleImage}
+          />
+        </TouchableOpacity>
           </View>
         </View>
       );
@@ -118,4 +118,5 @@ const sty = StyleSheet.create({
       },
 });
 
-export default OnBoardScreenOne;
+
+export default OnBoardScreenThree;

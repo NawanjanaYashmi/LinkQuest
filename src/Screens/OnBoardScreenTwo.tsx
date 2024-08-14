@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
 
 const OnBoardScreenTwo = () => {
+    const navigation = useNavigation<NavigationProp<ParamListBase>>();
     return (
         <View style={sty.container}>
-          <TouchableOpacity style={sty.skipButton} >
+          <TouchableOpacity style={sty.skipButton} onPress={()=>{navigation.navigate('NavigationBar');}}>
             <Text style={sty.skipText}>Skip</Text>
           </TouchableOpacity>
           
@@ -31,12 +33,12 @@ const OnBoardScreenTwo = () => {
               source={require('../Images/onboardnextunder2.png')}
               style={sty.smallImage}
             />
-            <TouchableOpacity style={sty.circleButton}>
-          <Image
-            source={require('../Images/selectionImg2.png')}
-            style={sty.circleImage}
-          />
-        </TouchableOpacity>
+            <TouchableOpacity style={sty.circleButton} onPress={()=>{navigation.navigate('OnBoardScreenThree');}}>
+                <Image
+                    source={require('../Images/selectionImg2.png')}
+                    style={sty.circleImage}
+                />
+            </TouchableOpacity>
           </View>
         </View>
       );
