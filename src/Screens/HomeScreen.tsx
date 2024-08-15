@@ -1,13 +1,42 @@
-import React, { useEffect, useRef } from 'react';
-import { StyleSheet, TouchableOpacity, ScrollView, View, Animated } from 'react-native';
-import { Image, Text } from 'react-native-elements';
+import React, { useEffect, useState, useRef } from 'react';
+import { StyleSheet, TouchableOpacity, ScrollView, View, Image, Animated } from 'react-native';
+import { Text } from 'react-native-elements';
 import { FAB } from 'react-native-paper';
 import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library
+import { db } from '../../firebaseconfig';
+import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+
+interface Hotel {
+  Name: string;
+  Img_url: string;
+  Visits: number;
+}
 
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const [hotels, setHotels] = useState<Hotel[]>([]);
   const glowAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    // Fetching top 5 most visited places from Firestore
+    const fetchHotels = async () => {
+      try {
+        const q = query(
+          collection(db, 'Hotel'),
+          orderBy('Visits', 'desc'),
+          limit(5)
+        );
+        const querySnapshot = await getDocs(q);
+
+        const hotelData: Hotel[] = querySnapshot.docs.map(doc => doc.data() as Hotel);
+        setHotels(hotelData);
+      } catch (error) {
+        console.error("Error fetching hotels: ", error);
+      }
+    };
+
+    fetchHotels();
+  }, []);
 
   useEffect(() => {
     Animated.loop(
@@ -37,9 +66,8 @@ const HomeScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-
       <ScrollView>
-      <View style={styles.imageContainer}>
+        <View style={styles.imageContainer}>
           <Image
             source={require('../Images/homeimg.png')}
             style={styles.homescreenImg}
@@ -60,103 +88,35 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
-
-      
+        {/* Categories Section */}
         <View style={styles.stylerowOne}>
-          <Text
-            style={{
-              color: '#2A2A2A',
-              fontSize: 20,
-              fontWeight: 'bold',
-              left: 15,
-            }}>
+          <Text style={{ color: '#2A2A2A', fontSize: 20, fontWeight: 'bold', left: 15 }}>
             Categories
           </Text>
-
-          <TouchableOpacity onPress={() => {
-            navigation.navigate('CategoryPage');
-          }}>
-
+          <TouchableOpacity onPress={() => navigation.navigate('CategoryPage')}>
             <Text style={{ color: '#75A82B', fontWeight: '700', right: 15 }}>
               See All
             </Text>
           </TouchableOpacity>
         </View>
 
+        {/* Categories Buttons */}
         <View style={{ flexDirection: 'row', marginTop: 8 }}>
           <TouchableOpacity style={styles.sectionBtns}>
             <Image
               source={require('../Images/cato1.png')}
               style={{ width: 30, height: 30, marginTop: 3 }}
             />
-            <Text
-              style={{
-                marginTop: 5,
-                color: '#696969',
-                fontSize: 12,
-                fontWeight: '700',
-              }}>
+            <Text style={{ marginTop: 5, color: '#696969', fontSize: 12, fontWeight: '700' }}>
               Adventure
             </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.sectionBtns}>
-            <Image
-              source={require('../Images/cato2.png')}
-              style={{ width: 30, height: 30, marginTop: 3 }}
-            />
-            <Text
-              style={{
-                marginTop: 5,
-                color: '#696969',
-                fontSize: 12,
-                fontWeight: '700',
-              }}>
-              Adventure
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.sectionBtns}>
-            <Image
-              source={require('../Images/cato3.png')}
-              style={{ width: 30, height: 30, marginTop: 3 }}
-            />
-            <Text
-              style={{
-                marginTop: 5,
-                color: '#696969',
-                fontSize: 12,
-                fontWeight: '700',
-              }}>
-              Adventure
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.sectionBtns}>
-            <Image
-              source={require('../Images/cato4.png')}
-              style={{ width: 30, height: 30, marginTop: 3 }}
-            />
-            <Text
-              style={{
-                marginTop: 5,
-                color: '#696969',
-                fontSize: 12,
-                fontWeight: '700',
-              }}>
-              Adventure
-            </Text>
-          </TouchableOpacity>
+          {/* Add more category buttons as needed */}
         </View>
 
+        {/* Most Visited Places Section */}
         <View style={styles.stylerowOne}>
-          <Text
-            style={{
-              color: '#2A2A2A',
-              fontSize: 20,
-              fontWeight: 'bold',
-              left: 15,
-            }}>
+          <Text style={{ color: '#2A2A2A', fontSize: 20, fontWeight: 'bold', left: 15 }}>
             Most Visited
           </Text>
           <TouchableOpacity onPress={() => {}}>
@@ -166,36 +126,21 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
+        {/* Most Visited Places Horizontal ScrollView */}
         <ScrollView horizontal>
           <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate('SigiriyaInfor');
-              console.log('Button pressed');
-            }}>
-              <Image source={require('../Images/sigiriya.png')} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, margin: 15 }} />
-              <Text style={styles.imgText}>Sigiriya</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              <Image source={require('../Images/lake.png')} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, marginRight: 15 }} />
-              <Text style={styles.imgText}>Gregory Lake</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              <Image source={require('../Images/sigiriya.png')} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, marginRight: 15 }} />
-              <Text style={styles.imgText}>Sigiriya</Text>
-            </TouchableOpacity>
+            {hotels.map((hotel, index) => (
+              <TouchableOpacity key={index} onPress={() => navigation.navigate('SigiriyaInfor')}>
+                <Image source={{ uri: hotel.Img_url }} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, margin: 15 }} />
+                <Text style={styles.imgText}>{hotel.Name}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </ScrollView>
 
+        {/* Top Events Section */}
         <View style={styles.stylerowOne}>
-          <Text
-            style={{
-              color: '#2A2A2A',
-              fontSize: 20,
-              fontWeight: 'bold',
-              left: 15,
-            }}>
+          <Text style={{ color: '#2A2A2A', fontSize: 20, fontWeight: 'bold', left: 15 }}>
             Top Events
           </Text>
           <TouchableOpacity>
@@ -205,33 +150,24 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
+        {/* Top Events Horizontal ScrollView */}
         <ScrollView horizontal>
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity>
               <Image source={require('../Images/eventPic1.png')} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, margin: 15 }} />
               <Text style={styles.imgText}>ElleTour</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity>
-              <Image source={require('../Images/eventPic2.png')} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, marginRight: 15 }} />
-              <Text style={styles.imgText}>Perahera</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              <Image source={require('../Images/eventPic3.png')} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, marginRight: 15 }} />
-              <Text style={styles.imgText}>Galle Fort</Text>
-            </TouchableOpacity>
+            {/* Add more event items as needed */}
           </View>
         </ScrollView>
       </ScrollView>
 
+      {/* Floating Action Button */}
       <Animated.View style={[styles.fabContainer, animatedStyle]}>
         <FAB
           style={styles.fab}
           icon="plus"
-          onPress={() => {
-            navigation.navigate('TagSelectionPage');
-          }}
+          onPress={() => navigation.navigate('TagSelectionPage')}
         />
       </Animated.View>
     </View>
@@ -247,7 +183,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     position: 'relative',
   },
-
   menuIcon: {
     position: 'absolute',
     top: 10,
@@ -266,7 +201,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'contain',
-
   },
   stylerowOne: {
     flexDirection: 'row',

@@ -18,7 +18,7 @@ import UserProfile from '../Screens/UserProfile'
 import OnBoardScreenOne from '../Screens/OnBoardScreenOne'
 import OnBoardScreenTwo from '../Screens/OnBoardScreenTwo'
 import OnBoardScreenThree from '../Screens/OnBoardScreenThree'
-
+import HotelImageUpload from '../Screens/HotelImageUpload'
 const Stack = createStackNavigator();
 
 export default function AppNavigation() {
@@ -26,7 +26,8 @@ export default function AppNavigation() {
     <NavigationContainer >
         <Stack.Navigator screenOptions={{headerShown:false}}>
 
-
+            {/* <Stack.Screen name='HotelImageUpload' component={HotelImageUpload}/>  */}
+            
             <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
