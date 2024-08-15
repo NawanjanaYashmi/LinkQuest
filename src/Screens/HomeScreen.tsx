@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, TouchableOpacity, ScrollView, View, Image, Animated } from 'react-native';
+import { StyleSheet, TouchableOpacity, ScrollView, View, Image, Animated, ActivityIndicator } from 'react-native';
 import { Text } from 'react-native-elements';
 import { FAB } from 'react-native-paper';
 import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
@@ -15,6 +15,7 @@ interface Hotel {
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const [hotels, setHotels] = useState<Hotel[]>([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const glowAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -32,6 +33,8 @@ const HomeScreen = () => {
         setHotels(hotelData);
       } catch (error) {
         console.error("Error fetching hotels: ", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching is done
       }
     };
 
@@ -63,6 +66,14 @@ const HomeScreen = () => {
   const animatedStyle = {
     shadowRadius: glowInterpolate,
   };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#75A82B" />
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -244,6 +255,12 @@ const styles = StyleSheet.create({
   },
   fab: {
     backgroundColor: '#75A82B',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
 });
 
