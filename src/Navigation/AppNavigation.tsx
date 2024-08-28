@@ -19,14 +19,19 @@ import OnBoardScreenOne from '../Screens/OnBoardScreenOne'
 import OnBoardScreenTwo from '../Screens/OnBoardScreenTwo'
 import OnBoardScreenThree from '../Screens/OnBoardScreenThree'
 import HotelImageUpload from '../Screens/HotelImageUpload'
+import Backendtesting from '../Screens/Backendtesting'
+import ChatAssist from '../Screens/ChatAssist'
+// import ChatAssist from '../Screens/ChatAssist'
+
 const Stack = createStackNavigator();
 
 export default function AppNavigation() {
   return (
     <NavigationContainer >
         <Stack.Navigator screenOptions={{headerShown:false}}>
-
+            
             {/* <Stack.Screen name='HotelImageUpload' component={HotelImageUpload}/>  */}
+            {/* <Stack.Screen name='ChatAssist' component={ChatAssist}/> */}
             
             <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
@@ -35,15 +40,14 @@ export default function AppNavigation() {
             <Stack.Screen name="UserProfile" component={UserProfile} />
           
             
-            {/* this is the first screen  */}
-            
+       
 
 
 
             <Stack.Screen name='OnBoardScreenOne' component={OnBoardScreenOne}/>
             <Stack.Screen name='OnBoardScreenTwo' component={OnBoardScreenTwo}/>
             <Stack.Screen name='OnBoardScreenThree' component={OnBoardScreenThree}/>
-
+            
 
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name='NavigationBar' component={NavigationBar}/> 
@@ -55,8 +59,9 @@ export default function AppNavigation() {
             <Stack.Screen name="DatesPickPage" component={DatePicker} />
             <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/> 
             <Stack.Screen name='CategoryPage' component={CategoryPage}/>
-
-           
+            <Stack.Screen name='ChatAssist' component={ChatAssist}/>{/* there are some modifications to be done  */} 
+      
+                      
 
             
     </Stack.Navigator>

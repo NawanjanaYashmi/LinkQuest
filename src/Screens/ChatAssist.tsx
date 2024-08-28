@@ -15,14 +15,12 @@ const ChatScreen = () => {
     if (inputText.trim() === '') return;
 
     const userMessage: IMessage = { text: inputText, role: 'user' };
-    const updatedMessages = [...messages, userMessage];
-    setMessages(updatedMessages);
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInputText('');
 
     try {
-      const response = await axios.post('http://your-backend-url/chat', {
+      const response = await axios.post('http://10.0.2.2:5000/chat', {
         user_input: inputText,
-        convo_history: updatedMessages,
       });
 
       const botResponse: IMessage = { text: response.data.response, role: 'model' };
