@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { Header, Icon, Text } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { collection, getDocs } from 'firebase/firestore';
+import { ActivityIndicator, StyleSheet, TouchableOpacity, View, Image } from 'react-native';
+import { collection, getDocs, QuerySnapshot } from 'firebase/firestore';
 import { db } from '../../firebaseconfig'; // Adjust the import path
+
+interface Category {
+  Name: string;
+  url: string;
+}
 
 const CategoryPage = () => {
   const navigation = useNavigation();
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'Categories'));
-        const fetchedCategories: any[] = [];
-        querySnapshot.forEach((doc) => {
-          fetchedCategories.push({ id: doc.id, ...doc.data() });
+        const querySnapshot: QuerySnapshot = await getDocs(collection(db, 'Categories'));
+        const fetchedCategories: Category[] = querySnapshot.docs.map(doc => {
+          const data = doc.data() as Category;
+          return {
+            ...data,
+            id: doc.id, // Optional: include the document ID if needed
+          };
         });
         setCategories(fetchedCategories);
       } catch (error) {
@@ -30,7 +38,7 @@ const CategoryPage = () => {
   }, []);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Header
         leftComponent={
           <Icon
@@ -47,21 +55,14 @@ const CategoryPage = () => {
         backgroundColor="white"
       />
 
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 30 }}>
+      <View style={sty.container}>
         {loading ? (
           <ActivityIndicator size="large" color="#75A82B" style={sty.loadingIndicator} />
         ) : (
           categories.map((category, index) => (
             <TouchableOpacity key={index} style={sty.CategoryPageSectionBtns}>
-              <Text
-                style={{
-                  marginTop: 5,
-                  color: '#75A82B',
-                  fontSize: 12,
-                  fontWeight: '700',
-                }}>
-                {category.Name}
-              </Text>
+              <Image source={{ uri: category.url }} style={sty.categoryImage} />
+              <Text style={sty.categoryName}>{category.Name}</Text>
             </TouchableOpacity>
           ))
         )}
@@ -74,15 +75,32 @@ const sty = StyleSheet.create({
   CategoryPageSectionBtns: {
     backgroundColor: '#FFFFFF',
     borderColor: '#FFFFFF',
-    width: 80,
-    height: 75,
+    width: 90,
+    height: 90,
     borderWidth: 1,
     borderRadius: 10,
     padding: 7,
     margin: 6,
     alignItems: 'center',
     elevation: 10,
-    left: 13,
+    justifyContent: 'center',
+  },
+  categoryImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+    marginBottom: 5,
+  },
+  categoryName: {
+    color: '#75A82B',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly', // Distribute buttons evenly
+    marginTop: 30,
   },
   loadingIndicator: {
     flex: 1,
