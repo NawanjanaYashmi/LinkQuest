@@ -10,21 +10,40 @@ interface IMessage {
 const ChatScreen = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [inputText, setInputText] = useState<string>('');
+  const [convoHistory, setConvoHistory] = useState<any[]>([]); // New state to manage convo history
 
   const sendMessage = async () => {
     if (inputText.trim() === '') return;
 
     const userMessage: IMessage = { text: inputText, role: 'user' };
+
+    // Update messages state
     setMessages((prevMessages) => [...prevMessages, userMessage]);
+
+    // Add the user message to the conversation history
+    const updatedConvoHistory = [
+      ...convoHistory,
+      { parts: [{ text: inputText }], role: 'user' }
+    ];
+    setConvoHistory(updatedConvoHistory);
     setInputText('');
 
     try {
       const response = await axios.post('http://10.0.2.2:5000/chat', {
         user_input: inputText,
+        convo_history: updatedConvoHistory
       });
 
       const botResponse: IMessage = { text: response.data.response, role: 'model' };
+
+      // Update messages with the bot response
       setMessages((prevMessages) => [...prevMessages, botResponse]);
+
+      // Add the bot response to the conversation history
+      setConvoHistory((prevConvoHistory) => [
+        ...prevConvoHistory,
+        { parts: [{ text: response.data.response }], role: 'model' }
+      ]);
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -81,6 +100,7 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: 16,
+    color: '#000',
   },
   inputContainer: {
     flexDirection: 'row',

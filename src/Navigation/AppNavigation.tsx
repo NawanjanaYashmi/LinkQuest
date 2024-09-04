@@ -21,8 +21,8 @@ import OnBoardScreenThree from '../Screens/OnBoardScreenThree'
 import HotelImageUpload from '../Screens/HotelImageUpload'
 import Backendtesting from '../Screens/Backendtesting'
 import ChatAssist from '../Screens/ChatAssist'
-// import ChatAssist from '../Screens/ChatAssist'
-
+import GoogleCalendarScreen from '../Screens/GoogleCalendarScreen'
+// import CalendarEventsScreen from '../Screens/CalendarEventsScreen'
 const Stack = createStackNavigator();
 
 export default function AppNavigation() {
@@ -31,8 +31,8 @@ export default function AppNavigation() {
         <Stack.Navigator screenOptions={{headerShown:false}}>
             
             {/* <Stack.Screen name='HotelImageUpload' component={HotelImageUpload}/>  */}
-            {/* <Stack.Screen name='ChatAssist' component={ChatAssist}/> */}
-            
+            {/* <Stack.Screen name='GoogleCalendarScreen' component={GoogleCalendarScreen}/> last working one*/} 
+            {/* <Stack.Screen name='CalendarEventsScreen' component={CalendarEventsScreen}/> */}
             <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
@@ -59,7 +59,8 @@ export default function AppNavigation() {
             <Stack.Screen name="DatesPickPage" component={DatePicker} />
             <Stack.Screen name='SigiriyaInfor' component={SigiriyaInfor}/> 
             <Stack.Screen name='CategoryPage' component={CategoryPage}/>
-            <Stack.Screen name='ChatAssist' component={ChatAssist}/>{/* there are some modifications to be done  */} 
+            <Stack.Screen name='ChatAssist' component={ChatAssist}/>
+            {/* <Stack.Screen name='ChatAssist' component={ChatAssist}/>there are some modifications to be done   */}
       
                       
 
