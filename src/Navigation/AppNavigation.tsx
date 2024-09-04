@@ -23,6 +23,10 @@ import Backendtesting from '../Screens/Backendtesting'
 import ChatAssist from '../Screens/ChatAssist'
 import GoogleCalendarScreen from '../Screens/GoogleCalendarScreen'
 // import CalendarEventsScreen from '../Screens/CalendarEventsScreen'
+import TestMap from '../Screens/TestMap'
+
+
+
 const Stack = createStackNavigator();
 
 export default function AppNavigation() {
@@ -30,6 +34,8 @@ export default function AppNavigation() {
     <NavigationContainer >
         <Stack.Navigator screenOptions={{headerShown:false}}>
             
+
+            <Stack.Screen name='TestMap' component={TestMap}/>
             {/* <Stack.Screen name='HotelImageUpload' component={HotelImageUpload}/>  */}
             {/* <Stack.Screen name='GoogleCalendarScreen' component={GoogleCalendarScreen}/> last working one*/} 
             {/* <Stack.Screen name='CalendarEventsScreen' component={CalendarEventsScreen}/> */}
