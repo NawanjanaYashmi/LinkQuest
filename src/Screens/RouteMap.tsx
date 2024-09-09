@@ -22,7 +22,7 @@ const RouteMap: React.FC = () => {
         const tags = await AsyncStorage.getItem('selected_tags');
         const startingPlace = await AsyncStorage.getItem('Starting_Place');
         const startingTime = await AsyncStorage.getItem('Starting_Time');
-        
+        const location = await AsyncStorage.getItem('location');
 
         setNumberOfDays(days);
         setSelectedMonth(month);
@@ -36,13 +36,14 @@ const RouteMap: React.FC = () => {
         const requestData = {
           day: days,
           starting_from: startingPlace,
-          locations: ['kandy,jafna'],
+          locations: location,
           starting_time: startingTime,
           starting_date: month,
           tags: selectedTags
         };
+        
 
-        const response = await axios.post('http://10.0.2.2:5000/testing', requestData);
+        const response = await axios.post('http://10.0.2.2:5000/map/process', requestData);
         if (response.status === 200) {
           setTripPlan(response.data);
         } else {

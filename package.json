@@ -18,6 +18,7 @@
     "@react-native-community/netinfo": "^11.3.2",
     "@react-native-community/slider": "^4.5.2",
     "@react-native-firebase/app": "^20.4.0",
+    "@react-native-firebase/auth": "^20.4.0",
     "@react-native-firebase/dynamic-links": "^20.4.0",
     "@react-native-google-signin/google-signin": "^13.0.1",
     "@react-native-masked-view/masked-view": "^0.3.1",

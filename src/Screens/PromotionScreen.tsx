@@ -10,7 +10,7 @@ import {Avatar, Button, Card} from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-const PromotionScreen = ({navigation}: any) => {
+const PromotionScreen = () => {
   function alert(arg0: string): void {
     throw new Error('Function not implemented.');
   }

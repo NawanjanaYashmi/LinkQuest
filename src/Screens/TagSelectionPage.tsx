@@ -21,12 +21,48 @@ const TagSelectionPage = ({ navigation }: any) => {
   };
 
   const handleNextPage = async () => {
+    const requestBody = {
+      "Wildlife": 0,
+      "Scenic": 1,
+      "Historical": 1,
+      "Recreational": 1,
+      "Nature": 0,
+      "Beach": 0,
+      "Religious": 0,
+      "Temple": 0,
+      "Lakes": 0,
+      "Cultural": 1,
+      "Adventure": 0,
+      "month": "May"
+    };
+  
     try {
       await AsyncStorage.setItem('selected_tags', JSON.stringify(selectedTags));
       console.log('Selected Tags:', selectedTags);
+  
+      const response = await fetch('http://10.0.2.2:5000/getplace', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      console.log('Response from server:', data);
+  
+    
+      if (data.top_3_places) {
+        await AsyncStorage.setItem('location', JSON.stringify(data.top_3_places));
+      }
+  
       navigation.navigate('DatesPickPage');
     } catch (error) {
-      console.error('Failed to save tags:', error);
+      console.error('Failed to save tags, send request, or save location:', error);
     }
   };
 

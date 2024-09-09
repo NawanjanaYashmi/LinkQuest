@@ -3,9 +3,10 @@ import { BottomNavigation, Text, useTheme } from 'react-native-paper';
 import Notification from './Notification';
 import HomeScreen from './HomeScreen';
 import PromotionScreen from './PromotionScreen';
+import CalandarData from './CalandarData';
 
 const HomeRoute = () => <HomeScreen />;
-const PromotionScreenRoute = () => <PromotionScreen />;
+const PromotionScreenRoute = () => <CalandarData />;
 const RecentsRoute = () => <Text>Recents</Text>;
 const NotificationsRoute = () => <Notification isNew={true} />;
 
@@ -14,7 +15,6 @@ const NavigationBar = () => {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-
     { key: 'home', title: 'Home', focusedIcon: 'home', unfocusedIcon: 'home'},
     { key: 'promotion', title: 'Promotion', focusedIcon: 'album' },
     { key: 'ar', title: 'AR', focusedIcon: 'history' },
