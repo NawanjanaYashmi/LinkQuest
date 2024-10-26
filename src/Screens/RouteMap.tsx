@@ -43,7 +43,7 @@ const RouteMap: React.FC = () => {
         };
         
 
-        const response = await axios.post('http://10.0.2.2:5000/map/process', requestData);
+        const response = await axios.post('http://10.0.2.2:5000/testing', requestData);
         if (response.status === 200) {
           setTripPlan(response.data);
         } else {

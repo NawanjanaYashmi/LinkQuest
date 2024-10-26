@@ -55,14 +55,14 @@ const CategoryPage = () => {
         backgroundColor="white"
       />
 
-      <View style={sty.container}>
+      <View style={styles.container}>
         {loading ? (
-          <ActivityIndicator size="large" color="#75A82B" style={sty.loadingIndicator} />
+          <ActivityIndicator size="large" color="#75A82B" style={styles.loadingIndicator} />
         ) : (
           categories.map((category, index) => (
-            <TouchableOpacity key={index} style={sty.CategoryPageSectionBtns}>
-              <Image source={{ uri: category.url }} style={sty.categoryImage} />
-              <Text style={sty.categoryName}>{category.Name}</Text>
+            <TouchableOpacity key={index} style={styles.categoryButton}>
+              <Image source={{ uri: category.url }} style={styles.categoryImage} />
+              <Text style={styles.categoryName}>{category.Name}</Text>
             </TouchableOpacity>
           ))
         )}
@@ -71,35 +71,39 @@ const CategoryPage = () => {
   );
 };
 
-const sty = StyleSheet.create({
-  CategoryPageSectionBtns: {
+const styles = StyleSheet.create({
+  categoryButton: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#FFFFFF',
+    borderColor: '#E0E0E0',
     width: 90,
     height: 90,
     borderWidth: 1,
     borderRadius: 10,
-    padding: 7,
-    margin: 6,
+    padding: 8,
+    margin: 8,
     alignItems: 'center',
-    elevation: 10,
     justifyContent: 'center',
+    elevation: 5, // Soft shadow effect
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   categoryImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
+    width: 40,
+    height: 40,
+    borderRadius: 5,
     marginBottom: 5,
   },
   categoryName: {
-    color: '#75A82B',
+    color: '#696969',
     fontSize: 12,
     fontWeight: '700',
   },
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-evenly', // Distribute buttons evenly
+    justifyContent: 'center',
     marginTop: 30,
   },
   loadingIndicator: {

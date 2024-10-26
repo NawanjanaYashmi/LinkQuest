@@ -28,6 +28,12 @@ import RouteMap from '../Screens/RouteMap'
 import RoutePlanningData from '../Screens/RoutePlanningData'
 import CalandarData from '../Screens/CalandarData'
 import PromotionScreen from '../Screens/PromotionScreen'
+import Feedback from '../Screens/Feedback'
+import LinkQuestReviews from '../Screens/LinkQuestReviews'
+import CreateReview from '../Screens/CreateReview'
+import AllReviews from '../Screens/AllReviews'
+import SentimentScoure from '../Screens/SentimentScoure'
+import MatchPerferancepage from '../Screens/MatchPerferancepage'
 
 
 
@@ -43,7 +49,12 @@ export default function AppNavigation() {
             {/* <Stack.Screen name='HotelImageUpload' component={HotelImageUpload}/>  */}
             {/* <Stack.Screen name='GoogleCalendarScreen' component={GoogleCalendarScreen}/> last working one*/} 
             {/* <Stack.Screen name='Cal endarEventsScreen' component={CalendarEventsScreen}/> */}
-    
+            <Stack.Screen name="Feedback" component={Feedback} />
+            <Stack.Screen name="CreateReview" component={CreateReview} />         
+            <Stack.Screen name="LinkQuestReviews" component={LinkQuestReviews} />
+            <Stack.Screen name="AllReviews" component={AllReviews} />
+            <Stack.Screen name="SentimentScoure" component={SentimentScoure} />
+            <Stack.Screen name="MatchPerferancepage" component={MatchPerferancepage}/>
             <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />

@@ -6,11 +6,10 @@ import SearchBar from 'react-native-dynamic-search-bar';
 import { ScrollView } from 'react-native';
 import {Header, Icon, Image} from 'react-native-elements';
 import {Avatar, Button, Card} from 'react-native-paper';
-
-// import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
 const PromotionScreen = () => {
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
   function alert(arg0: string): void {
     throw new Error('Function not implemented.');
   }
@@ -68,8 +67,8 @@ const PromotionScreen = () => {
             <Card.Actions>
               <Button style={sty.viewmoreBtn}
                onPress={() => {
-                // navigation.navigate('DatesPickPage');
-                console.log('Button pressed');
+                
+                navigation.navigate('ChatAssist');
               }}
               >
                 <Text style={sty.viewMoreText}>View More Details</Text>

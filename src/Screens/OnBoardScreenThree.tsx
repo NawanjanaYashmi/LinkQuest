@@ -20,7 +20,7 @@ const OnBoardScreenThree = () => {
             />
 
             <Text style={sty.description1}>
-            Plan Your Dream Trip With Tourplace 
+            Plan Your Dream Trip With LinkQuest 
             </Text>
 
             <Text style={sty.description2}>
@@ -81,6 +81,7 @@ const sty = StyleSheet.create({
         marginBottom: 30,
       },
       description2: {
+        color: '#2A2A2A',
         textAlign: 'center',
         fontSize: 16,
         fontWeight: '400',
