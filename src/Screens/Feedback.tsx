@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { db } from '../../firebaseconfig';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import axios from 'axios';
-import { reviewClassifierService } from '../services/review_classifier';
+
 
 const Feedback = () => {
   const [hotelName, setHotelName] = useState('');
@@ -81,11 +81,9 @@ const navigation = useNavigation();
           setRating(0);
         }
 
-        // Send hotel details to OpenAI API for summarization
+       
         const hotelDetails = `Hotel name: ${data.Name}, About: ${data.about}, Rating: ${rating}`;
-        //const generatedSummary = await summarizeHotelDetails(data.about);
-        //setSummary(generatedSummary);
-        
+       
       } else {
         Alert.alert('No hotel found', 'The hotel ID does not exist.');
         setHotelName('');
@@ -103,7 +101,7 @@ const navigation = useNavigation();
 
     console.log(about)//for testing
     
-    const API_KEY = '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'; // Replace with your actual API key
+    const keyA = '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'; // Replace with your actual API key
   
     try {
       const response = await axios.post(
@@ -117,7 +115,7 @@ const navigation = useNavigation();
         },
         {
           headers: {
-            Authorization: `Bearer ${API_KEY}`,
+            Authorization: `Bearer ${keyA}`,
             'Content-Type': 'application/json',
           },
         }
