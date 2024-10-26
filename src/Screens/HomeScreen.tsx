@@ -185,7 +185,7 @@ const HomeScreen = () => {
           <View style={{ flexDirection: 'row' }}>
             {places.map((place, index) => (
               <TouchableOpacity key={index} onPress={() => navigation.navigate('SigiriyaInfor')}>
-                <Image source={{ uri: place.Img_url }} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, margin: 15 }} />
+                <Image source={{ uri: place.Img_url }} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, margin: 10 }} />
                 <Text style={styles.imgText}>{place.Name}</Text>
               </TouchableOpacity>
             ))}
@@ -208,7 +208,7 @@ const HomeScreen = () => {
           <View style={{ flexDirection: 'row' }}>
             {events.map((event, index) => (
               <TouchableOpacity key={index}>
-                <Image source={{ uri: event.Img_URL1}} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, margin: 15 }} />
+                <Image source={{ uri: event.Img_URL1}} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, margin: 10 }} />
                 <Text style={styles.imgText}>{event.Name}</Text>
               </TouchableOpacity>
             ))}
