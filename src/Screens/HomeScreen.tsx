@@ -274,6 +274,7 @@ const styles = StyleSheet.create({
     left: 13,
   },
   imgText: {
+    margin:5,
     position: 'absolute',
     bottom: 20,
     left: 20,
