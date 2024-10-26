@@ -49,22 +49,17 @@ export default function AppNavigation() {
             {/* <Stack.Screen name='HotelImageUpload' component={HotelImageUpload}/>  */}
             {/* <Stack.Screen name='GoogleCalendarScreen' component={GoogleCalendarScreen}/> last working one*/} 
             {/* <Stack.Screen name='Cal endarEventsScreen' component={CalendarEventsScreen}/> */}
+            
+            <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
+            <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="UserProfile" component={UserProfile} />
             <Stack.Screen name="Feedback" component={Feedback} />
             <Stack.Screen name="CreateReview" component={CreateReview} />         
             <Stack.Screen name="LinkQuestReviews" component={LinkQuestReviews} />
             <Stack.Screen name="AllReviews" component={AllReviews} />
             <Stack.Screen name="SentimentScoure" component={SentimentScoure} />
             <Stack.Screen name="MatchPerferancepage" component={MatchPerferancepage}/>
-            <Stack.Screen name='LoadingScreen' component={LoadingScreen}/>
-            <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
-
-            <Stack.Screen name="UserProfile" component={UserProfile} />
-          
-            
-       
-
-            
             <Stack.Screen name='ChatAssist' component={ChatAssist}/>
             <Stack.Screen name='OnBoardScreenOne' component={OnBoardScreenOne}/>
             <Stack.Screen name='OnBoardScreenTwo' component={OnBoardScreenTwo}/>

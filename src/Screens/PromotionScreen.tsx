@@ -1,227 +1,119 @@
 import * as React from 'react';
-import {StyleSheet} from 'react-native';
-import {Text} from 'react-native';
-import {View} from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { Header, Image } from 'react-native-elements';
+import { Card, Button } from 'react-native-paper';
 import SearchBar from 'react-native-dynamic-search-bar';
-import { ScrollView } from 'react-native';
-import {Header, Icon, Image} from 'react-native-elements';
-import {Avatar, Button, Card} from 'react-native-paper';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { db } from '../../firebaseconfig';
+import { collection, getDocs } from 'firebase/firestore';
+
+interface Promotion {
+  id: string;
+  img_url?: string;
+  Hotel_Name: string;
+  Starting_Date: string;
+  Ending_Date: string;
+  Percentage: number;
+}
 
 const PromotionScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
-  function alert(arg0: string): void {
-    throw new Error('Function not implemented.');
-  }
+  const [promotions, setPromotions] = React.useState<Promotion[]>([]);
+  const [searchQuery, setSearchQuery] = React.useState<string>(''); // State for search query
+
+  React.useEffect(() => {
+    const fetchPromotions = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'Promotion'));
+        const promoData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Promotion[];
+        setPromotions(promoData);
+      } catch (error) {
+        console.error("Error fetching promotions:", error);
+      }
+    };
+
+    fetchPromotions();
+  }, []);
+
+  // Filter promotions based on search query
+  const filteredPromotions = promotions.filter((promo) =>
+    promo.Hotel_Name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <ScrollView>
       <Header
-        
         centerComponent={{
           text: 'Promotions',
-          style: {color: '#2A2A2A', fontSize: 20, fontWeight: 'bold',marginTop: 10},
+          style: { color: '#2A2A2A', fontSize: 20, fontWeight: 'bold', marginTop: 10 },
         }}
         backgroundColor="white"
       />
 
-    
-    
-
-    <View style={sty.container}>
-      
-      
-
-      <SearchBar
-        style={sty.searchbar}
-        placeholder="Search here"
-        onPress={() => alert('onPress')}
-        onChangeText={text => console.log(text)}
-      />
-
-      
-        {/* //card one */}
-      <Card style={sty.cardmain}>
-        <Card.Cover
-          source={require('../Images/ellepic.jpg')}
-          style={{width: 355, height: 180}}
+      <View style={styles.container}>
+        <SearchBar
+          style={styles.searchbar}
+          placeholder="Search here"
+          onPress={() => console.log('Search Pressed')}
+          onChangeText={text => setSearchQuery(text)} // Update search query state
         />
 
-        <Card.Content>
-          <View style={sty.rowContainertextone}>
-            <Text style={sty.cardtextoneleft}>
-             
-           <Image source={require('../Images/loicon.png')} style={{width: 18, height: 18, marginTop:10}} />
-              98 Acres Resort & Spa
-            </Text>
-            <View style={sty.rowContainertextone}>
-            <Image source={require('../Images/Star.png')} style={{width: 15, height: 15, marginTop:5,}} />
-              <Text style={sty.cardtextoneright}>4.4 </Text>
-            </View>
-          </View>
-
-          <Text style={sty.cardtextwo}>Jun 05 - Jun 19</Text>
-
-          <View style={sty.rowContainertexttwo}>
-            <Text style={sty.carddiscounttext}>15 %</Text>
-            <Card.Actions>
-              <Button style={sty.viewmoreBtn}
-               onPress={() => {
-                
-                navigation.navigate('ChatAssist');
-              }}
-              >
-                <Text style={sty.viewMoreText}>View More Details</Text>
-              </Button>
-            </Card.Actions>
-          </View>
-        </Card.Content>
-      </Card>
-
-      {/* //card two */}
-      <Card style={sty.cardmain}>
-        <Card.Cover
-          source={require('../Images/kandalama.jpg')}
-          style={{width: 355, height: 180}}
-        />
-
-        <Card.Content>
-          <View style={sty.rowContainertextone}>
-            <Text style={sty.cardtextoneleft}>
-              
-            <Image source={require('../Images/loicon.png')} style={{width: 18, height: 18, marginTop:10}} />
-              Kandalama Hotel
-            </Text>
-            <View style={sty.rowContainertextone}>
-            <Image source={require('../Images/Star.png')} style={{width: 15, height: 15, marginTop:5,}} />
-              <Text style={sty.cardtextoneright}>3.8 </Text>
-            </View>
-          </View>
-
-          <Text style={sty.cardtextwo}>Feb 02 - Feb 10</Text>
-
-          <View style={sty.rowContainertexttwo}>
-            <Text style={sty.carddiscounttext}>12 %</Text>
-            <Card.Actions>
-              <Button style={sty.viewmoreBtn}>
-                <Text style={sty.viewMoreText}>View More Details</Text>
-              </Button>
-            </Card.Actions>
-          </View>
-        </Card.Content>
-      </Card>
-
-
-      {/* //card three */}
-      <Card style={sty.cardmain}>
-        <Card.Cover
-          source={require('../Images/okay-ray.jpg')}
-          style={{width: 355, height: 180}}
-        />
-
-        <Card.Content>
-          <View style={sty.rowContainertextone}>
-            <Text style={sty.cardtextoneleft}>
-              
-            <Image source={require('../Images/loicon.png')} style={{width: 18, height: 18, marginTop:10}} />
-              Oak Ray Hotel
-            </Text>
-            <View style={sty.rowContainertextone}>
-            <Image source={require('../Images/Star.png')} style={{width: 15, height: 15, marginTop:5,}} />
-              <Text style={sty.cardtextoneright}>3.4 </Text>
-            </View>
-          </View>
-
-          <Text style={sty.cardtextwo}>May 15 - May 19</Text>
-
-          <View style={sty.rowContainertexttwo}>
-            <Text style={sty.carddiscounttext}>25 %</Text>
-            <Card.Actions>
-              <Button style={sty.viewmoreBtn}>
-                <Text style={sty.viewMoreText}>View More Details</Text>
-              </Button>
-            </Card.Actions>
-          </View>
-        </Card.Content>
-      </Card>
-      
-    
-    </View>
+        {filteredPromotions.map((promo) => (
+          <Card style={styles.cardMain} key={promo.id}>
+            <Card.Cover
+              source={{ uri: promo.img_url || 'https://via.placeholder.com/150' }}
+              style={{ width: 355, height: 180 }}
+            />
+            <Card.Content>
+              <View style={styles.rowContainerTextOne}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Image source={require('../Images/loicon.png')} style={styles.icon} />
+                  <Text style={styles.cardTextOneLeft}>{promo.Hotel_Name}</Text>
+                </View>
+                <View style={styles.rowContainerTextOne}>
+                  <Image source={require('../Images/Star.png')} style={styles.iconSmall} />
+                  <Text style={styles.cardTextOneRight}>4.4</Text>
+                </View>
+              </View>
+              <Text style={styles.cardTextTwo}>
+                {promo.Starting_Date} - {promo.Ending_Date}
+              </Text>
+              <View style={styles.rowContainerTextTwo}>
+                <Text style={styles.cardDiscountText}>{promo.Percentage} %</Text>
+                <Card.Actions>
+                  <Button
+                    style={styles.viewMoreBtn}
+                    onPress={() => navigation.navigate('ChatAssist')}
+                  >
+                    <Text style={styles.viewMoreText}>View More Details</Text>
+                  </Button>
+                </Card.Actions>
+              </View>
+            </Card.Content>
+          </Card>
+        ))}
+      </View>
     </ScrollView>
   );
 };
 
-const sty = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  
-  searchbar: {
-    marginTop: 35,
-    width: '90%',
-    height: 40,
-    backgroundColor: '#F5F5F5',
-  },
-  cardmain: {
-    width: '90%',
-    marginTop: 20,
-    backgroundColor: '#F5F5F5',
-  },
-  rowContainertextone: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  cardtextoneleft: {
-    marginTop: 8,
-    fontSize: 17,
-    fontWeight: '500',
-    color: '#2A2A2A',
-    right: 7,
-    
-  },
-  cardtextoneright: {
-    marginTop: 8,
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#F7B502',
-  },
-  cardtextwo: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#2A2A2A',
-  },
-  carddiscounttext: {
-    fontSize: 23,
-    fontWeight: '800',
-    color: '#2A2A2A',
-    marginTop: 5,
-  },
-  rowContainertexttwo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  viewmoreBtn: {
-    backgroundColor: '#75A82B',
-    borderWidth: 0,
-    borderRadius: 15,
-    left: 10,
-  },
-  viewMoreText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  icon: {
-   marginTop: 6,
-  
-  
-
-   
-  },
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: 'white', alignItems: 'center' },
+  searchbar: { marginTop: 35, width: '90%', height: 40, backgroundColor: '#F5F5F5' },
+  cardMain: { width: '90%', marginTop: 20, backgroundColor: '#F5F5F5' },
+  rowContainerTextOne: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  cardTextOneLeft: { marginTop: 8, fontSize: 17, fontWeight: '500', color: '#2A2A2A' },
+  cardTextOneRight: { marginTop: 8, fontSize: 15, fontWeight: '500', color: '#F7B502' },
+  cardTextTwo: { fontSize: 14, fontWeight: '500', color: '#c5c5c5' ,marginStart:25,},
+  cardDiscountText: { fontSize: 23, fontWeight: '800', color: '#2A2A2A', marginTop: 5 },
+  rowContainerTextTwo: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  viewMoreBtn: { backgroundColor: '#75A82B', borderRadius: 15, left: 10 },
+  viewMoreText: { color: 'white', fontSize: 12, fontWeight: '500' },
+  icon: { width: 18, height: 18, marginRight: 5 },
+  iconSmall: { width: 15, height: 15, marginRight: 5 },
 });
 
 export default PromotionScreen;
