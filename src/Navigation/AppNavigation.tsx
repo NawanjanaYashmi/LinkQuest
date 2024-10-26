@@ -34,6 +34,7 @@ import CreateReview from '../Screens/CreateReview'
 import AllReviews from '../Screens/AllReviews'
 import SentimentScoure from '../Screens/SentimentScoure'
 import MatchPerferancepage from '../Screens/MatchPerferancepage'
+import CatogoryList from '../Screens/CatogoryList'
 
 
 
@@ -78,6 +79,7 @@ export default function AppNavigation() {
             <Stack.Screen name='CategoryPage' component={CategoryPage}/>
            
             <Stack.Screen name='RouteMap' component={RouteMap}/>
+            {/* <Stack.Screen name='CatogoryList' component={CatogoryList}/> */}
             {/* <Stack.Screen name='ChatAssist' component={ChatAssist}/>there are some modifications to be done   */}
       
                       

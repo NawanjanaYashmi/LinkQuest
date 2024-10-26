@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, FlatList, Text, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, FlatList, Text, StyleSheet, ImageBackground } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 
 interface IMessage {
@@ -10,16 +11,16 @@ interface IMessage {
 const ChatScreen = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [inputText, setInputText] = useState<string>('');
-  const [convoHistory, setConvoHistory] = useState<any[]>([]); // New state to manage convo history
+  const [convoHistory, setConvoHistory] = useState<any[]>([]);// New state to manage convo history
 
   const sendMessage = async () => {
     if (inputText.trim() === '') return;
 
     const userMessage: IMessage = { text: inputText, role: 'user' };
 
-    // Update messages state
+     // Update messages state
     setMessages((prevMessages) => [...prevMessages, userMessage]);
-
+     
     // Add the user message to the conversation history
     const updatedConvoHistory = [
       ...convoHistory,
@@ -35,7 +36,7 @@ const ChatScreen = () => {
       });
 
       const botResponse: IMessage = { text: response.data.response, role: 'model' };
-
+      
       // Update messages with the bot response
       setMessages((prevMessages) => [...prevMessages, botResponse]);
 
@@ -56,12 +57,18 @@ const ChatScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={{ uri: 'https://example.com/your-background.jpg' }} style={styles.background}>
+      {/* App Bar */}
+      <View style={styles.appBar}>
+        <Text style={styles.appBarTitle}>Chat Assistant</Text>
+      </View>
+
       <FlatList
         data={messages}
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
         style={styles.messageList}
+        contentContainerStyle={styles.messageListContent}
       />
       <View style={styles.inputContainer}>
         <TextInput
@@ -69,53 +76,103 @@ const ChatScreen = () => {
           value={inputText}
           onChangeText={setInputText}
           placeholder="Type your message..."
+          placeholderTextColor="#888"
         />
-        <Button title="Send" onPress={sendMessage} />
+        <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
+          <Icon name="send" size={24} color="#fff" />
+        </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: '#f0f0f0',
+  },
+  appBar: {
+    height: 60,
+    backgroundColor: 'rgba(117, 168, 43, 0.8)', // Semi-transparent
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { height: 2, width: 0 },
+  },
+  appBarTitle: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   messageList: {
     flex: 1,
+    paddingHorizontal: 10,
+  },
+  messageListContent: {
+    paddingBottom: 20,
   },
   messageContainer: {
-    marginVertical: 5,
-    padding: 10,
-    borderRadius: 10,
+    marginVertical: 8,
+    padding: 15,
+    borderRadius: 20,
+    maxWidth: '75%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 3,
   },
   userMessage: {
     alignSelf: 'flex-end',
-    backgroundColor: '#d1e7dd',
+    backgroundColor: 'rgba(226, 244, 234, 0.8)', // Slight transparency
+    borderBottomRightRadius: 0,
+    shadowColor: '#75A82B',
   },
   botMessage: {
     alignSelf: 'flex-start',
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Slight transparency
+    borderBottomLeftRadius: 0,
+    shadowColor: '#ccc',
   },
   messageText: {
     fontSize: 16,
-    color: '#000',
+    color: '#333',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderTopWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#eee',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Semi-transparent
+    borderRadius: 25,
+    margin: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 4,
   },
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 10,
+    borderColor: '#ddd',
+    borderRadius: 20,
     padding: 10,
+    backgroundColor: '#f9f9f9',
     marginRight: 10,
+  },
+  sendButton: {
+    backgroundColor: '#75A82B',
+    borderRadius: 20,
+    padding: 10,
   },
 });
 

@@ -16,8 +16,8 @@ const NavigationBar = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'home', title: 'Home', focusedIcon: 'home', unfocusedIcon: 'home'},
-    { key: 'promotion', title: 'Promotion', focusedIcon: 'album' },
-    { key: 'ar', title: 'AR', focusedIcon: 'history' },
+    { key: 'promotion', title: 'Promotion', focusedIcon: 'gift' },
+    { key: 'ar', title: 'AR', focusedIcon: 'camera' },
     { key: 'notifications', title: 'Notification', focusedIcon: 'bell', unfocusedIcon: 'bell-outline' },
   ]);
 

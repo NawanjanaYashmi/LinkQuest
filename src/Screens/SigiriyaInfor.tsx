@@ -9,12 +9,12 @@ const SigiriyaInfor = ({navigation}: any) => {
     <View>
       <Image source={require('../Images/si.png')} style={sty.homescreenImg} />
 
-      <View style={{margin: 20}}>
+      <View style={{margin: 20,  alignItems: 'center'}}>
         <Text style={{fontSize: 23, fontWeight: '700', color: '#200E32'}}>
           Sigiriya
         </Text>
         <View style={sty.locationContainer}>
-          <Icon name="map-marker" size={20} color="#999" style={sty.icon} />
+          <Icon name="map-marker" size={20} color="#75A82B" style={sty.icon} />
           <Text style={sty.locationText}>Dambulla, Sri Lanka</Text>
         </View>
       </View>
