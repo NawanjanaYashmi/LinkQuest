@@ -4,6 +4,7 @@ import { Header, Image } from 'react-native-elements';
 import { Card, Button } from 'react-native-paper';
 import SearchBar from 'react-native-dynamic-search-bar';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { db } from '../../firebaseconfig';
 import { collection, getDocs } from 'firebase/firestore';
 
@@ -14,12 +15,13 @@ interface Promotion {
   Starting_Date: string;
   Ending_Date: string;
   Percentage: number;
+  chat_data: string;
 }
 
 const PromotionScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const [promotions, setPromotions] = React.useState<Promotion[]>([]);
-  const [searchQuery, setSearchQuery] = React.useState<string>(''); // State for search query
+  const [searchQuery, setSearchQuery] = React.useState<string>('');
 
   React.useEffect(() => {
     const fetchPromotions = async () => {
@@ -38,7 +40,16 @@ const PromotionScreen = () => {
     fetchPromotions();
   }, []);
 
-  // Filter promotions based on search query
+  const handleViewMore = async (chatData: string) => {
+    try {
+      await AsyncStorage.setItem('chat_data', chatData);
+      
+      navigation.navigate('ChatAssist');
+    } catch (error) {
+      console.error("Error saving chat data:", error);
+    }
+  };
+
   const filteredPromotions = promotions.filter((promo) =>
     promo.Hotel_Name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -58,7 +69,7 @@ const PromotionScreen = () => {
           style={styles.searchbar}
           placeholder="Search here"
           onPress={() => console.log('Search Pressed')}
-          onChangeText={text => setSearchQuery(text)} // Update search query state
+          onChangeText={text => setSearchQuery(text)}
         />
 
         {filteredPromotions.map((promo) => (
@@ -86,7 +97,7 @@ const PromotionScreen = () => {
                 <Card.Actions>
                   <Button
                     style={styles.viewMoreBtn}
-                    onPress={() => navigation.navigate('ChatAssist')}
+                    onPress={() => handleViewMore(promo.chat_data)} // Save chat_data to AsyncStorage
                   >
                     <Text style={styles.viewMoreText}>View More Details</Text>
                   </Button>
