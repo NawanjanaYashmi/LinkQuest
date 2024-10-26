@@ -20,11 +20,11 @@ const OnBoardScreenOne = () => {
             />
 
             <Text style={sty.description1}>
-            Explore The World With TourPlace
+            Explore The Sri Lanka With LinkQuest
             </Text>
 
             <Text style={sty.description2}>
-            Discover the wonders of the world with our comprehensive tour guide app. Explore popular tourist attractions, hidden gems, and cultural hotspots with detailed information and captivating images
+            Discover the wonders of the Sri Lanka with our comprehensive tour guide app. Explore popular tourist attractions, hidden gems, and cultural hotspots with detailed information and captivating images
             </Text>
           </View>
           
@@ -83,6 +83,7 @@ const sty = StyleSheet.create({
       description2: {
         textAlign: 'center',
         fontSize: 16,
+        color: '#2A2A2A',
         fontWeight: '400',
         marginHorizontal: 20,
       },

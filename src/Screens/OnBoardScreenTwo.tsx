@@ -82,6 +82,7 @@ const sty = StyleSheet.create({
         marginBottom: 30,
       },
       description2: {
+        color: '#2A2A2A',
         textAlign: 'center',
         fontSize: 16,
         fontWeight: '400',

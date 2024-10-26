@@ -2653,6 +2653,13 @@
     firebase "10.12.2"
     superstruct "^0.6.2"
 
+"@react-native-firebase/auth@^20.4.0":
+  version "20.4.0"
+  resolved "https://registry.npmjs.org/@react-native-firebase/auth/-/auth-20.4.0.tgz"
+  integrity sha512-LUmlS9m62QdDoqJKxPyZIBLne1O7ZznY3QjGh5tfU1QVk4DM/b1iG4wR06nyEK9PqzFY5BdqWwWAKbquXl78HQ==
+  dependencies:
+    plist "^3.1.0"
+
 "@react-native-firebase/dynamic-links@^20.4.0":
   version "20.4.0"
   resolved "https://registry.npmjs.org/@react-native-firebase/dynamic-links/-/dynamic-links-20.4.0.tgz"
@@ -7188,7 +7195,7 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-plist@^3.0.5:
+plist@^3.0.5, plist@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/plist/-/plist-3.1.0.tgz"
   integrity sha512-uysumyrvkUX0rX/dEVqt8gC3sTBzd4zoWfLeS29nb53imdaXVvLINYXTI2GNqzaMuvacNx4uJQ8+b3zXR0pkgQ==
@@ -7474,10 +7481,10 @@ react-native-elements@^3.4.3:
     react-native-ratings "8.0.4"
     react-native-size-matters "^0.3.1"
 
-react-native-gesture-handler@^2.19.0, "react-native-gesture-handler@>= 1.0.0":
-  version "2.19.0"
-  resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.19.0.tgz"
-  integrity sha512-Cc6DnSnn5hhgiuJOtlOJmXkbBBOZkW9UnJJG+DrWPq2jJuNvM4g5qq2plsywhxQj9xT7FyXZwVVblaXabfGZvQ==
+react-native-gesture-handler@^2.20.2, "react-native-gesture-handler@>= 1.0.0":
+  version "2.20.2"
+  resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.20.2.tgz"
+  integrity sha512-HqzFpFczV4qCnwKlvSAvpzEXisL+Z9fsR08YV5LfJDkzuArMhBu2sOoSPUF/K62PCoAb+ObGlTC83TKHfUd0vg==
   dependencies:
     "@egjs/hammerjs" "^2.0.17"
     hoist-non-react-statics "^3.3.0"
@@ -7559,6 +7566,13 @@ react-native-parsed-text@0.0.22:
   dependencies:
     prop-types "^15.7.x"
 
+react-native-progress@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/react-native-progress/-/react-native-progress-5.0.1.tgz"
+  integrity sha512-TYfJ4auAe5vubDma2yfFvt7ktSI+UCfysqJnkdHEcLXqAitRFOozgF/cLgN5VNi/iLdaf3ga1ETi2RF4jVZ/+g==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-ratings@8.0.4:
   version "8.0.4"
   resolved "https://registry.npmjs.org/react-native-ratings/-/react-native-ratings-8.0.4.tgz"
@@ -7608,7 +7622,7 @@ react-native-size-matters@^0.3.1:
   dependencies:
     prop-types "^15.5.8"
 
-"react-native-svg@>= 11.x":
+react-native-svg@*, "react-native-svg@>= 11.x":
   version "15.4.0"
   resolved "https://registry.npmjs.org/react-native-svg/-/react-native-svg-15.4.0.tgz"
   integrity sha512-zkBEbme/Dba4yqreg/oI2P6/6LrLywWY7HhaSwpU7Pb5COpTd2fV6/ShsgZz8GRFFdidUPwWmx01FITUsjhkmw==

@@ -6,39 +6,84 @@ import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/
 import { db } from '../../firebaseconfig';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 
-interface Hotel {
+interface Place {
   Name: string;
   Img_url: string;
   Visits: number;
 }
 
+interface Event {
+  Name: string;
+  Img_URL1: string;
+}
+
+interface Category {
+  Name: string;
+  url: string;
+}
+
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
-  const [hotels, setHotels] = useState<Hotel[]>([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
   const glowAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Fetching top 5 most visited places from Firestore
-    const fetchHotels = async () => {
+    const fetchPlaces = async () => {
       try {
         const q = query(
-          collection(db, 'Hotel'),
+          collection(db, 'Place'),
           orderBy('Visits', 'desc'),
           limit(5)
         );
         const querySnapshot = await getDocs(q);
-
-        const hotelData: Hotel[] = querySnapshot.docs.map(doc => doc.data() as Hotel);
-        setHotels(hotelData);
+        const placeData: Place[] = querySnapshot.docs.map(doc => doc.data() as Place);
+        setPlaces(placeData);
       } catch (error) {
-        console.error("Error fetching hotels: ", error);
+        console.error("Error fetching places: ", error);
       } finally {
-        setLoading(false); // Set loading to false after fetching is done
+        setLoading(false);
       }
     };
 
-    fetchHotels();
+    const fetchEvents = async () => {
+      try {
+        const qu = query(
+          collection(db, 'Events'),
+          limit(4)
+        
+        );
+        const querySnapshot = await getDocs(qu);
+        const eventData: Event[] = querySnapshot.docs.map(doc => doc.data() as Event);
+        setEvents(eventData);
+      } catch (error) {
+        console.error("Error fetching events: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        const qc = query(
+          collection(db, 'Categories'),
+          limit(4)
+        );
+        const querySnapshot = await getDocs(qc);
+        const categoryData: Category[] = querySnapshot.docs.map(doc => doc.data() as Category);
+        setCategories(categoryData);
+      } catch (error) {
+        console.error("Error fetching categories: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlaces();
+    fetchEvents();
+    fetchCategories();
   }, []);
 
   useEffect(() => {
@@ -83,14 +128,12 @@ const HomeScreen = () => {
             source={require('../Images/homeimg.png')}
             style={styles.homescreenImg}
           />
-          {/* Menu Icon */}
           <TouchableOpacity style={styles.menuIcon} onPress={() => navigation.navigate('UserProfile')}>
             <Image
               source={require('../Images/menuimg.png')}
               style={styles.iconStyle}
             />
           </TouchableOpacity>
-          {/* Profile Icon */}
           <TouchableOpacity style={styles.profileIcon} onPress={() => {}}>
             <Image
               source={require('../Images/profileimg.png')}
@@ -113,16 +156,17 @@ const HomeScreen = () => {
 
         {/* Categories Buttons */}
         <View style={{ flexDirection: 'row', marginTop: 8 }}>
-          <TouchableOpacity style={styles.sectionBtns}>
-            <Image
-              source={require('../Images/cato1.png')}
-              style={{ width: 30, height: 30, marginTop: 3 }}
-            />
-            <Text style={{ marginTop: 5, color: '#696969', fontSize: 12, fontWeight: '700' }}>
-              Adventure
-            </Text>
-          </TouchableOpacity>
-          {/* Add more category buttons as needed */}
+          {categories.map((category, index) => (
+            <TouchableOpacity key={index} style={styles.sectionBtns}>
+              <Image
+                source={{ uri: category.url }}
+                style={{ width: 30, height: 30, marginTop: 3 }}
+              />
+              <Text style={{ marginTop: 5, color: '#696969', fontSize: 11, fontWeight: '700' }}>
+                {category.Name}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
 
         {/* Most Visited Places Section */}
@@ -137,13 +181,12 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Most Visited Places Horizontal ScrollView */}
         <ScrollView horizontal>
           <View style={{ flexDirection: 'row' }}>
-            {hotels.map((hotel, index) => (
+            {places.map((place, index) => (
               <TouchableOpacity key={index} onPress={() => navigation.navigate('SigiriyaInfor')}>
-                <Image source={{ uri: hotel.Img_url }} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, margin: 15 }} />
-                <Text style={styles.imgText}>{hotel.Name}</Text>
+                <Image source={{ uri: place.Img_url }} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, margin: 15 }} />
+                <Text style={styles.imgText}>{place.Name}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -161,19 +204,18 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Top Events Horizontal ScrollView */}
         <ScrollView horizontal>
           <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity>
-              <Image source={require('../Images/eventPic1.png')} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, margin: 15 }} />
-              <Text style={styles.imgText}>ElleTour</Text>
-            </TouchableOpacity>
-            {/* Add more event items as needed */}
+            {events.map((event, index) => (
+              <TouchableOpacity key={index}>
+                <Image source={{ uri: event.Img_URL1}} style={{ width: 130, height: 130, marginTop: 10, borderRadius: 10, margin: 15 }} />
+                <Text style={styles.imgText}>{event.Name}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </ScrollView>
       </ScrollView>
 
-      {/* Floating Action Button */}
       <Animated.View style={[styles.fabContainer, animatedStyle]}>
         <FAB
           style={styles.fab}
@@ -184,7 +226,6 @@ const HomeScreen = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   homescreenImg: {
     width: '100%',

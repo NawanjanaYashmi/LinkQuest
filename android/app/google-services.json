@@ -7,6 +7,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1086206763805:android:265b2d626b65fb96dc37f4",
+        "android_client_info": {
+          "package_name": "com.company.TravelMate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086206763805-enun2pqd31hmgnupgo4a6kbnvl8ftelf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.TravelMate",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1086206763805-c702vpspr6g0hf38pn5bubkn79944q6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXn2msB7vYFoid-_7G7wQdIVSSUE3mBNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086206763805-c702vpspr6g0hf38pn5bubkn79944q6p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1086206763805-q03iepkp8ecep5ju2dqbtp31sf2g6lvg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.company.TravelMate"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1086206763805:android:b4e4a5823afbc97fdc37f4",
         "android_client_info": {
           "package_name": "com.linkquest"
@@ -29,6 +73,13 @@
             {
               "client_id": "1086206763805-c702vpspr6g0hf38pn5bubkn79944q6p.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1086206763805-q03iepkp8ecep5ju2dqbtp31sf2g6lvg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.company.TravelMate"
+              }
             }
           ]
         }
