@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity, FlatList, Text, StyleSheet, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -121,9 +120,9 @@ const styles = StyleSheet.create({
   },
   appBar: {
     height: 60,
-    backgroundColor: 'rgba(117, 168, 43, 0.8)', // Semi-transparent
+    backgroundColor: '#', 
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingLeft:20,
     paddingTop: 15,
     elevation: 4,
     shadowColor: '#000',
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 2, width: 0 },
   },
   appBarTitle: {
-    color: '#fff',
+    color: '#000',
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -156,13 +155,14 @@ const styles = StyleSheet.create({
   },
   userMessage: {
     alignSelf: 'flex-end',
-    backgroundColor: 'rgba(226, 244, 234, 0.8)', // Slight transparency
+    backgroundColor: '#75A82B', 
     borderBottomRightRadius: 0,
     shadowColor: '#75A82B',
   },
   botMessage: {
+    
     alignSelf: 'flex-start',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Slight transparency
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', 
     borderBottomLeftRadius: 0,
     shadowColor: '#ccc',
   },
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    color:'#000',
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 20,
