@@ -184,7 +184,7 @@ const HomeScreen = () => {
         <ScrollView horizontal>
           <View style={{ flexDirection: 'row' }}>
             {places.map((place, index) => (
-              <TouchableOpacity key={index} onPress={() => navigation.navigate('SigiriyaInfor')}>
+              <TouchableOpacity key={index} onPress={() =>navigation.navigate('PlaceInfo', { placeName: place.Name })}>
                 <Image source={{ uri: place.Img_url }} style={{ width: 200, height: 150, marginTop: 10, borderRadius: 10, margin: 10 }} />
                 <Text style={styles.imgText}>{place.Name}</Text>
               </TouchableOpacity>

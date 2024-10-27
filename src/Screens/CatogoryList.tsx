@@ -1,11 +1,13 @@
-//import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import SearchBar from 'react-native-dynamic-search-bar';
 import { Header, Icon } from 'react-native-elements';
-
+import { RouteProp, useRoute } from '@react-navigation/native';
 // create a component
 const CatogoryList = () => {
+    const route = useRoute<RouteProp<{ params: { location: string } }, 'params'>>();
+    const location = route.params.location;
+    console.log(location)
     return (
         <ScrollView>
             <Header
