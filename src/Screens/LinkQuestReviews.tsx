@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, ScrollView, ActivityIndicator } from 'react-native';
 import { Bar as ProgressBar } from 'react-native-progress';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
@@ -26,8 +26,8 @@ interface ClassifiedReview {
   }[];
 }
 
-const baseUrl: string = 'https://7063-124-43-209-178.ngrok-free.app/';
-const baseUr2: string = 'https://7063-124-43-209-178.ngrok-free.app/'; // Replace with your API base URL
+const baseUrl: string = 'https://8254-124-43-209-178.ngrok-free.app/';
+const baseUr2: string = 'https://8254-124-43-209-178.ngrok-free.app/'; // Replace with your API base URL
 
 const reviewClassifierService = async (reviews: string[]): Promise<ClassifiedReview[]> => {
   try {
@@ -125,7 +125,7 @@ const LinkQuestReviews = () => {
     </View>
   );
 
-  if (loading) return <Text>Loading...</Text>;
+  if (loading) return  <ActivityIndicator size="large" color="#75A82B" />;
   if (error) return <Text>{error}</Text>;
 
   const categories = Array.from(
@@ -161,20 +161,20 @@ const LinkQuestReviews = () => {
       </View>
 
 
-      <View style={{ flex: 1, alignItems: 'center' }}>
-        <Button
-          title="Sentiment Scoure"
-          buttonStyle={styles.button1}
-          containerStyle={styles.buttonContainer}
-          onPress={navigateSentimentScoure}
-        />
-        <Button
-          title="Match My Perferance"
-          buttonStyle={styles.button}
-          containerStyle={styles.buttonContainer}
-          onPress={navigateMatchPerferancepage}
-        />
-      </View>
+      <View style={{ flex: 0.9, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+  <Button
+    title="Sentiment Score"
+    buttonStyle={styles.button1}
+    containerStyle={{ ...styles.buttonContainer, marginHorizontal: 10 }}
+    onPress={navigateSentimentScoure}
+  />
+  <Button
+    title="Match My Preference"
+    buttonStyle={styles.button}
+    containerStyle={{ ...styles.buttonContainer, marginHorizontal: 10 }}
+    onPress={navigateMatchPerferancepage}
+  />
+</View>
       
 
       
@@ -183,26 +183,27 @@ const LinkQuestReviews = () => {
 };
 
 const styles = StyleSheet.create({
-  button1: { marginTop: 60, backgroundColor: 'green', borderRadius: 20 },
-  buttonContainer: { width: '80%' },
-  button: { marginTop: 10, backgroundColor: 'green', borderRadius: 20 },
+  button1: { marginTop: 20, backgroundColor: '#75A82B', borderRadius: 15,marginLeft: 55 },
+  buttonContainer: { width: '60%' },
+  button: { marginTop: 20, backgroundColor: '#75A82B', borderRadius: 15 , marginRight: 55},
 
   container: {
     flex: 1,
-    backgroundColor: '#75A82B',
+    backgroundColor: 'white',
   },
   headerContainer: {
-    flex: 0.3,
+    flex: 0.8,
     backgroundColor: '#75A82B',
     borderRadius: 10,
   },
   header: {
-    flex: 1,
+    flex: 1.2,
     backgroundColor: '#75A82B',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: 20,
+    borderRadius: 10,
   },
   headerText: {
     fontSize: 20,
@@ -232,18 +233,45 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   whiteBackgroundContainer: {
-    flex: 0.8,
+    flex: 1.5,
+    marginTop:10,
+    marginLeft:5,
+    marginRight:5,
     backgroundColor: 'white',
     borderRadius: 20,
     paddingHorizontal: 20,
+    borderWidth: 2,
+    borderColor: '#75A82B',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5, // For Android
   },
+
+  
   greenBackgroundContainer: {
-    flex: 2,
+    flex: 4,
+    marginLeft:5,
+    marginRight:5,
     backgroundColor: '#f0f0f0',
     borderRadius: 20,
+    borderWidth: 2,
     borderColor: '#75A82B',
-    top: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5, // For Android
+    marginTop: 20, // Optional
   },
+  
   sentenceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

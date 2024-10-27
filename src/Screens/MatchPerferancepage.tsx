@@ -6,6 +6,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { db } from '../../firebaseconfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import axios from 'axios';
+import { AirbnbRating } from 'react-native-ratings';
 
 interface Review {
   id: string;
@@ -36,7 +37,7 @@ const MatchPreferencePage = () => {
 
   const fetchMatchedUsers = async (userID: string): Promise<MatchedUser[]> => {
     try {
-      const response = await axios.post('https://7063-124-43-209-178.ngrok-free.app/match_preferences', { userID });
+      const response = await axios.post('https://8254-124-43-209-178.ngrok-free.app/match_preferences', { userID });
       console.log('Matched users response:', response.data);
       return response.data.matched_users || [];
     } catch (error) {
@@ -128,8 +129,18 @@ const MatchPreferencePage = () => {
         {filteredReviews.length > 0 ? (
           filteredReviews.map((review) => (
             <View key={review.id} style={styles.reviewContainer}>
-              <Text>Review: {review.review}</Text>
-              <Text>Rating: {review.rating}</Text>
+              <Text style={styles.reviewText}>Review: {review.review}</Text>
+              <View style={styles.reviewContainer2}>
+                <AirbnbRating 
+                  count={5}
+                  defaultRating={review.rating}
+                  size={15}
+                  showRating={false}
+                  isDisabled={true}
+                  selectedColor="#FFD700"
+                  style={{ alignSelf: 'flex-start' }} // Aligns the rating to the left
+                />
+              </View>
             </View>
           ))
         ) : (
@@ -170,22 +181,48 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   sentimentContainer: {
-    marginTop: 30,
+    flex:4.5,
+    marginTop: 10,
     padding: 15,
+    marginBottom:10,
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 20,
     marginHorizontal: 5,
+    marginLeft:5,
+    marginRight:5,
   },
   sentimentText: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#000',
+    marginBottom:30,
   },
   reviewContainer: {
     marginBottom: 10,
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#75A82B',
+    borderRadius: 20,
+    
+  },
+  reviewContainer2: {
+    marginTop: 10,
+    marginLeft: 3,
+    marginRight: 20,
+    marginBottom: 5,
+    padding: 0,
+    // borderWidth: 1,
+    // borderColor: '#75A82B',
+    // borderRadius: 10,
+    alignItems: 'flex-start', // Aligns the content to the left
+    
+
+  },
+
+  reviewText: {
+    fontSize: 15.5, // Adjust the font size as needed
+    lineHeight: 20, // Adjust line height for better readability
+    fontWeight: '400', // Change to 'bold' if you want it to be bold
+    color: '#333', // Change color if needed
   },
 });
 

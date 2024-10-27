@@ -20,7 +20,7 @@ interface SentimentResult {
   sentiment_score: number;
 }
 
-const baseUrl = 'https://7063-124-43-209-178.ngrok-free.app/getsentiment';
+const baseUrl = 'https://8254-124-43-209-178.ngrok-free.app/getsentiment';
 
 const SentimentScore = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -124,6 +124,7 @@ const SentimentScore = () => {
     navigation.goBack();
   };
 
+
   if (loading) return <ActivityIndicator size="large" color="#75A82B" />;
   if (error) return <Text>{error}</Text>;
 
@@ -141,12 +142,44 @@ const SentimentScore = () => {
         </View>
       </View>
       <View style={styles.sentimentContainer}>
-        <Text style={styles.sentimentText}>Sentiment Analysis:</Text>
-        <Text style={styles.sentimentText}>Good: {sentimentCounts.good}</Text>
-        <Text style={styles.sentimentText}>Average: {sentimentCounts.average}</Text>
-        <Text style={styles.sentimentText}>Bad: {sentimentCounts.bad}</Text>
-        <Text style={styles.sentimentText}>Most Common Sentiment: {maxSentiment}</Text>
+        <Text style={styles.sentimentText1}>Sentiment Analysis</Text>
+        
       </View>
+
+      <View style={styles.sentimentContainer3}>
+
+      <View style={styles.sentimentContainer4}>
+
+      <Text style={styles.sentimentText2}>Good</Text>
+      <Text style={styles.sentimentTextGood}>{sentimentCounts.good}</Text>
+
+      </View>
+
+      <View style={styles.sentimentContainer5}>
+      <Text style={styles.sentimentText2}>Average</Text>
+      <Text style={styles.sentimentTextGood}>{sentimentCounts.average}</Text>
+
+      </View>
+
+      <View style={styles.sentimentContainer6}>
+      <Text style={styles.sentimentText2}>Bad</Text>
+      <Text style={styles.sentimentTextGood}>{sentimentCounts.bad}</Text>
+
+      </View>
+        
+
+      </View>
+      
+      
+
+      {/* Flex 02 */}
+      <View style={styles.container2}>
+
+        <Text style={styles.sentimentText}>Most Common Sentiment</Text>
+        <Text style={styles.sentimentTextMCS}>{maxSentiment}</Text>
+
+      </View>
+
     </View>
   );
 };
@@ -155,6 +188,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#75A82B',
+  },
+
+  container2: {
+    flex: 2,
+    backgroundColor: 'white',
+    borderRadius:20,
+    marginRight:5,
+    marginLeft:5,
+    marginTop:10,
+    marginBottom:10,
   },
   headerContainer: {
     flex: 0.3,
@@ -187,9 +230,125 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 5,
   },
+  sentimentContainer3: {
+    flex:0.4,
+    flexDirection: 'row',
+    marginTop: 30,
+    padding: 15,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginLeft:5,
+    marginRight:5,
+    
+  },
+  sentimentContainer4: {
+    width: 100,
+    marginTop: 10,
+    padding: 15,
+    backgroundColor: '#75A82B',
+    borderRadius: 10,
+    // Shadow properties
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5, // For Android
+  },
+  sentimentContainer5: {
+    width: 100,
+    marginLeft: 20,
+    marginTop: 10,
+    padding: 15,
+    backgroundColor: '#75A82B',
+    borderRadius: 10,
+    // Shadow properties
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5, // For Android
+  },
+  sentimentContainer6: {
+    width: 100,
+    marginLeft: 20,
+    marginTop: 10,
+    padding: 15,
+    backgroundColor: '#75A82B',
+    borderRadius: 10,
+    // Shadow properties
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 6.5,
+    elevation: 5, // For Android
+  },
   sentimentText: {
+    fontSize: 20,
+    color: 'black',
+    textAlign:'center',
+    fontWeight:'bold',
+    marginTop:15,
+  },
+  sentimentTextMCS: {
+    fontSize: 60,
+    color: 'black',
+    textAlign:'center',
+    fontWeight:'bold',
+    marginTop:60,
+  },
+  sentimentText1: {
+    fontSize: 22,
+    color: 'black',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    // Shadow properties
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5, // For Android
+  },
+  sentimentText2: {
     fontSize: 16,
-    color: '#000',
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    // Shadow properties
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5, // For Android
+  },
+  sentimentTextGood: {
+    fontSize: 22,
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    // Shadow properties
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5, // For Android
   },
 });
 
