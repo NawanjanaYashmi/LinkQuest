@@ -87,8 +87,8 @@ const Feedback = () => {
   };
 
   const summarizeHotelDetails = async (about) => {
-    // const API_KEY = 'sk-20bFLb5DiExGnTWh1QZwQMhjXGln7bjk-_wl6axzKjT3BlbkFJdbQTQ5Mjyc9jHZSNbz8Rjv4YURKcDd8pACxsrlH1QA'; // Replace with your actual API key
-    const API_KEY = 'API';
+    const Akey = 'sk-20bFLb5DiExGnTWh1QZwQMhjXGln7bjk-_wl6axzKjT3BlbkFJdbQTQ5Mjyc9jHZSNbz8Rjv4YURKcDd8pACxsrlH1QA'; // Replace with your actual API key
+    // const Akey = 'API';
   
     try {
       const response = await axios.post(
@@ -102,7 +102,7 @@ const Feedback = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${API_KEY}`,
+            Authorization: `Bearer ${Akey}`,
             'Content-Type': 'application/json',
           },
         }
