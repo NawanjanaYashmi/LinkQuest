@@ -6,7 +6,7 @@ const TestMap = () => {
   return (
     <View style={styles.container}>
       <MapView
-        provider={PROVIDER_GOOGLE} // Use Google Maps
+        provider={PROVIDER_GOOGLE} 
         style={styles.map}
         region={{
           latitude: 37.78825,
