@@ -19,6 +19,7 @@ interface Hotel {
 
 const HotelScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [email, setEmail] = useState<string | null>(null);
@@ -59,9 +60,12 @@ const HotelScreen = () => {
   );
 
   const handleViewMore = async (hotel: Hotel) => {
-    console.log('Selected Hotel ID:', hotel.id); // Log the hotel ID for debugging
-    // Here you can save the hotel ID or navigate to another screen if needed
-    // For example, save to AsyncStorage or navigate to details
+    const userID=email;
+    const hotelId= hotel.id;
+    navigation.navigate("Feedback", { hotelId, userID });
+    console.log('Selected Hotel ID:', hotelId);
+    console.log('Selected User ID :', userID);
+
   };
 
   return (

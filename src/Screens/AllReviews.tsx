@@ -30,8 +30,7 @@ const AllReviews = () => {
     console.log(hotelId)
     const fetchReviews = async () => {
       try {
-        //const hotelId = '1NZtaXkjHTBdG0a2K2Gd'; // hotelId
-
+        
         const reviewCollection = collection(db, 'reviews');
         const q = query(reviewCollection, where('hotelId', '==', hotelId));
         const reviewSnapshot = await getDocs(q);

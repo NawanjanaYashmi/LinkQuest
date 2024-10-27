@@ -4,22 +4,25 @@ import { Button } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { AirbnbRating } from 'react-native-ratings';
 import Icon2 from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 import { db } from '../../firebaseconfig';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import axios from 'axios';
+import { useRoute } from'@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const Feedback = () => {
   const [hotelName, setHotelName] = useState('');
   const [hotelImage, setHotelImage] = useState('');
   const [rating, setRating] = useState(0);
   const [about, setAbout] = useState('');
-  const [summary, setSummary] = useState(''); // State for summary
-
-  const hotelId = '1NZtaXkjHTBdG0a2K2Gd';
-  const userID = 'Dinusajith@gmail.com';
+  const [summary, setSummary] = useState(''); 
+  
   
   const navigation = useNavigation();
+  const route = useRoute();
+  const { hotelId, userID} = route.params;
+  
+  console.log(hotelId, userID);
 
   const handleBackPress = () => {
     navigation.goBack();
@@ -87,8 +90,7 @@ const Feedback = () => {
   };
 
   const summarizeHotelDetails = async (about) => {
-    const Akey = 'sk-20bFLb5DiExGnTWh1QZwQMhjXGln7bjk-_wl6axzKjT3BlbkFJdbQTQ5Mjyc9jHZSNbz8Rjv4YURKcDd8pACxsrlH1QA'; // Replace with your actual API key
-    // const Akey = 'API';
+    const Akey = 'sk-20bFLb5DiExGnTWh1QZwQMhjXGln7bjk-_wl6axzKjT3BlbkFJdbQTQ5Mjyc9jHZSNbz8Rjv4YURKcDd8pACxsrlH1QA';
   
     try {
       const response = await axios.post(

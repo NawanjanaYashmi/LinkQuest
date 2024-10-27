@@ -95,8 +95,8 @@ const SentimentScore = () => {
 
         if (reviewSnapshot.empty) {
           console.warn('No reviews found for this hotel ID.');
-          setReviews([]); // Ensure you set an empty array if no reviews found
-          return; // Exit early
+          setReviews([]);
+          return; 
         }
 
         const reviewList = reviewSnapshot.docs.map(doc => ({
