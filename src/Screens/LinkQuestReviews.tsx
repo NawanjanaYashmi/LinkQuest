@@ -26,8 +26,8 @@ interface ClassifiedReview {
   }[];
 }
 
-const baseUrl: string = 'https://8254-124-43-209-178.ngrok-free.app/';
-const baseUr2: string = 'https://8254-124-43-209-178.ngrok-free.app/'; // Replace with your API base URL
+const baseUrl: string = 'https://700b-212-104-229-60.ngrok-free.app/';
+const baseUr2: string = 'https://700b-212-104-229-60.ngrok-free.app/'; // Replace with your API base URL
 
 const reviewClassifierService = async (reviews: string[]): Promise<ClassifiedReview[]> => {
   try {

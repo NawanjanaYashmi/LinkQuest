@@ -35,7 +35,7 @@ const MatchPreferencePage = () => {
 
   const fetchMatchedUsers = async (userID: string): Promise<MatchedUser[]> => {
     try {
-      const response = await axios.post('https://8254-124-43-209-178.ngrok-free.app/match_preferences', { userID });
+      const response = await axios.post('https://700b-212-104-229-60.ngrok-free.app/match_preferences', { userID });
       return response.data.matched_users || [];
     } catch (error) {
       setError('Failed to fetch matched users. Please try again later.');
