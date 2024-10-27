@@ -75,9 +75,9 @@ const SentimentScore = () => {
       setSentimentCounts(sentimentCounts);
 
       const maxCount = Math.max(sentimentCounts.good, sentimentCounts.average, sentimentCounts.bad);
-      if (maxCount === sentimentCounts.good) setMaxSentiment('good');
-      else if (maxCount === sentimentCounts.average) setMaxSentiment('average');
-      else if (maxCount === sentimentCounts.bad) setMaxSentiment('bad');
+      if (maxCount === sentimentCounts.good) setMaxSentiment('Good');
+      else if (maxCount === sentimentCounts.average) setMaxSentiment('Average');
+      else if (maxCount === sentimentCounts.bad) setMaxSentiment('Bad');
       
     } catch (error) {
       console.error('Error during sentiment analysis:', error);
@@ -191,18 +191,19 @@ const styles = StyleSheet.create({
   },
 
   container2: {
-    flex: 2,
+    flex: 0.5,
     backgroundColor: 'white',
     borderRadius:20,
     marginRight:5,
     marginLeft:5,
-    marginTop:10,
-    marginBottom:10,
+    marginTop: 30,
+    marginBottom:100,
   },
   headerContainer: {
-    flex: 0.3,
+    flex: 0.1,
     backgroundColor: '#75A82B',
     borderRadius: 10,
+    marginTop:10,
   },
   header: {
     flex: 1,
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   sentimentContainer3: {
-    flex:0.4,
+    flex:0.2,
     flexDirection: 'row',
     marginTop: 30,
     padding: 15,

@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
     marginRight: 5,
-    backgroundColor: 'black', // Optional: background color for the rounded box
+    backgroundColor: '#494a49', // Optional: background color for the rounded box
     padding: 5, // Optional: padding inside the rounded box
     borderRadius: 10, // Rounded corners
   },
