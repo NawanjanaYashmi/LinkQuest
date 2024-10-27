@@ -282,7 +282,20 @@ const CalendarDate: React.FC = () => {
   return (
     <View style={{ flex: 1, padding: 20 }}>
       {!calendarConnected ? (
-        <Button color='#75A82B' title="Connect Your Calendar" onPress={signInWithGoogle} />
+        <View style={styles.cardyash}>
+          <View>
+            
+          <Image
+             source={require('../Images/calnderimg2.png')}
+              style={styles.bigImage}
+            />
+            
+            <Text style={styles.description}>
+              Connect your Google account to sync and manage your calendar events seamlessly. Stay organized and never miss an important date!
+            </Text>
+            <Button color='#75A82B' title="Connect Your Calendar" onPress={signInWithGoogle} />
+          </View>
+          </View>
       ) : (
         <Image source={require('../Images/banner.png')} style={styles.connectedImage} />
       )}
@@ -396,6 +409,37 @@ const styles = StyleSheet.create({
     height: 200, // Adjust height as needed
     resizeMode: 'contain', // Adjust the resize mode as needed
     marginBottom: 20, // Add margin if needed
+  },
+  cardyash: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    margin: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
+    alignItems: 'center',
+    marginTop:80, // Centers the content within the card
+  },
+  bigImage: {
+    width: 300,
+    height: 300,
+    
+  },
+//   cardTitleyash: {
+//     fontSize: 18,
+//     fontWeight: '600',
+//     marginBottom: 10,
+//     color: '#333',
+// },
+  description: {
+    fontSize: 16,
+    color: '#838383',
+    textAlign: 'center',
+    marginBottom: 10,
+    paddingHorizontal: 20,
   },
 });
 
