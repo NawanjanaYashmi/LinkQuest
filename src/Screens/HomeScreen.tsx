@@ -157,7 +157,15 @@ const HomeScreen = () => {
         {/* Categories Buttons */}
         <View style={{ flexDirection: 'row', marginTop: 8 }}>
           {categories.map((category, index) => (
-            <TouchableOpacity key={index} style={styles.sectionBtns}>
+            <TouchableOpacity key={index} style={styles.sectionBtns} onPress={()=>{
+              navigation.navigate('CatogoryList',
+                {
+                  location:category.Name
+                }
+              );
+            }}
+            
+            >
               <Image
                 source={{ uri: category.url }}
                 style={{ width: 30, height: 30, marginTop: 3 }}
