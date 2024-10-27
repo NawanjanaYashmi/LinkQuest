@@ -281,6 +281,7 @@ const CalendarDate: React.FC = () => {
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
+
       {!calendarConnected ? (
         <View style={styles.cardyash}>
           <View>
@@ -296,6 +297,7 @@ const CalendarDate: React.FC = () => {
             <Button color='#75A82B' title="Connect Your Calendar" onPress={signInWithGoogle} />
           </View>
           </View>
+
       ) : (
         <Image source={require('../Images/banner.png')} style={styles.connectedImage} />
       )}

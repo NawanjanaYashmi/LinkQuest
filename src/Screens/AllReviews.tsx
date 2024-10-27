@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'; // Import navigation h
 import { db } from '../../firebaseconfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { useRoute } from'@react-navigation/native';
+import { AirbnbRating } from 'react-native-ratings';
 
 
 
@@ -21,7 +22,7 @@ const AllReviews = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const navigation = useNavigation(); // Use the navigation hook
   const route = useRoute(); // Use the route hook
-  const{hotelId} = route.params;
+  const{ hotelId} = route.params;
 
 
   useEffect(() => {
@@ -56,8 +57,17 @@ const AllReviews = () => {
       <Text style={styles.reviewText}>Review: {item.review}</Text>
       <View style={styles.ratingContainer}>
         <Text style={styles.ratingLabel}>Rating:</Text>
+        <AirbnbRating
+            count={5}
+            defaultRating={item.rating}
+            size={15}
+            showRating={false}
+            isDisabled={true}
+            selectedColor="#FFD700"
+          />
         <View style={styles.ratingValueContainer}>
           <Text style={styles.ratingValue}>{item.rating}</Text>
+          
         </View>
       </View>
     </View>
@@ -149,7 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
     marginRight: 5,
-    backgroundColor: '#2de3bf', // Optional: background color for the rounded box
+    backgroundColor: '#494a49', // Optional: background color for the rounded box
     padding: 5, // Optional: padding inside the rounded box
     borderRadius: 10, // Rounded corners
   },
@@ -157,13 +167,14 @@ const styles = StyleSheet.create({
     width: 30, // Adjust size as needed
     height: 30, // Adjust size as needed
     borderRadius: 15, // Make it circular
-    backgroundColor: '#f1f527',
+    backgroundColor: '#75A82B',
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft:150
   },
   ratingValue: {
     fontSize: 16,
-    color: 'black', // Contrast color for text
+    color: 'white', // Contrast color for text
   },
 });
 

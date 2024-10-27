@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { db } from '../../firebaseconfig';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import axios from 'axios';
-
+import { reviewClassifierService } from '../services/review_classifier';
 
 const Feedback = () => {
   const [hotelName, setHotelName] = useState('');
@@ -81,9 +81,11 @@ const navigation = useNavigation();
           setRating(0);
         }
 
-       
+        // Send hotel details to OpenAI API for summarization
         const hotelDetails = `Hotel name: ${data.Name}, About: ${data.about}, Rating: ${rating}`;
-       
+        //const generatedSummary = await summarizeHotelDetails(data.about);
+        //setSummary(generatedSummary);
+        
       } else {
         Alert.alert('No hotel found', 'The hotel ID does not exist.');
         setHotelName('');
@@ -101,7 +103,7 @@ const navigation = useNavigation();
 
     console.log(about)//for testing
     
-    const keyA = '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'; // Replace with your actual API key
+    const API_KEY = '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'; // Replace with your actual API key
   
     try {
       const response = await axios.post(
@@ -115,7 +117,7 @@ const navigation = useNavigation();
         },
         {
           headers: {
-            Authorization: `Bearer ${keyA}`,
+            Authorization: `Bearer ${API_KEY}`,
             'Content-Type': 'application/json',
           },
         }
@@ -188,7 +190,7 @@ const navigation = useNavigation();
           onPress={navigatelinkquestreviews}
         />
       </View>
-      <TouchableOpacity style={{borderWidth: 1,borderColor: 'green',alignItems: 'center',justifyContent: 'center',width: 50,position: 'absolute',top: 600,right: 20,height: 50,backgroundColor: 'green',borderRadius: 100,}}onPress={() => { navigation.navigate("CreateReview",{hotelId, userID}) }}>
+      <TouchableOpacity style={{borderWidth: 1,borderColor: '#75A82B',alignItems: 'center',justifyContent: 'center',width: 50,position: 'absolute',top: 600,right: 20,height: 50,backgroundColor: '#75A82B',borderRadius: 100,}}onPress={() => { navigation.navigate("CreateReview",{hotelId, userID}) }}>
       <Text style={{ color: "white" , fontWeight:600, fontSize:30}}>+</Text></TouchableOpacity>
     </View>
   );
@@ -202,8 +204,8 @@ const styles = StyleSheet.create({
   ratingContainer: { marginTop: 70, alignItems: 'center', right: 135 },
   box2: { top: 13, height: 100, backgroundColor: '#A7F9B6', margin: 15, justifyContent: 'center', borderRadius: 20 },
   boxText: { left: 10, fontSize: 15 },
-  button: { marginTop: 10, backgroundColor: 'green', borderRadius: 20 },
-  button1: { marginTop: 60, backgroundColor: 'green', borderRadius: 20 },
+  button: { marginTop: 10, backgroundColor: '#75A82B', borderRadius: 20 },
+  button1: { marginTop: 60, backgroundColor: '#75A82B', borderRadius: 20 },
   buttonContainer: { width: '80%' },
   backButton: { position: 'absolute', left: 20, padding: 10 },
   hotelImage: { width: '100%', height: 200, borderRadius: 0, margin: 0 },
