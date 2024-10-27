@@ -20,7 +20,7 @@ interface SentimentResult {
   sentiment_score: number;
 }
 
-const baseUrl = 'https://8254-124-43-209-178.ngrok-free.app/getsentiment';
+const baseUrl = 'https://700b-212-104-229-60.ngrok-free.app/getsentiment';
 
 const SentimentScore = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -75,9 +75,9 @@ const SentimentScore = () => {
       setSentimentCounts(sentimentCounts);
 
       const maxCount = Math.max(sentimentCounts.good, sentimentCounts.average, sentimentCounts.bad);
-      if (maxCount === sentimentCounts.good) setMaxSentiment('Good');
-      else if (maxCount === sentimentCounts.average) setMaxSentiment('Average');
-      else if (maxCount === sentimentCounts.bad) setMaxSentiment('Bad');
+      if (maxCount === sentimentCounts.good) setMaxSentiment('Hotel is Good.');
+      else if (maxCount === sentimentCounts.average) setMaxSentiment('Hotel Rview is Average.');
+      else if (maxCount === sentimentCounts.bad) setMaxSentiment('Hotel is Bad.');
       
     } catch (error) {
       console.error('Error during sentiment analysis:', error);
@@ -95,8 +95,8 @@ const SentimentScore = () => {
 
         if (reviewSnapshot.empty) {
           console.warn('No reviews found for this hotel ID.');
-          setReviews([]); // Ensure you set an empty array if no reviews found
-          return; // Exit early
+          setReviews([]);
+          return; 
         }
 
         const reviewList = reviewSnapshot.docs.map(doc => ({
@@ -176,7 +176,10 @@ const SentimentScore = () => {
       <View style={styles.container2}>
 
         <Text style={styles.sentimentText}>Most Common Sentiment</Text>
+
+        <View style={styles.containerMCS}>
         <Text style={styles.sentimentTextMCS}>{maxSentiment}</Text>
+        </View>
 
       </View>
 
@@ -198,6 +201,17 @@ const styles = StyleSheet.create({
     marginLeft:5,
     marginTop: 30,
     marginBottom:100,
+  },
+  containerMCS: {
+    flex: 1.5,
+    backgroundColor: '#75A82B',
+    borderRadius:20,
+    marginRight:0,
+    marginLeft:14,
+    marginTop: 28,
+    marginBottom:40,
+    width:350,
+    alignContent:'center',
   },
   headerContainer: {
     flex: 0.1,
@@ -300,11 +314,11 @@ const styles = StyleSheet.create({
     marginTop:15,
   },
   sentimentTextMCS: {
-    fontSize: 60,
-    color: 'black',
+    fontSize: 40,
+    color: 'white',
     textAlign:'center',
     fontWeight:'bold',
-    marginTop:60,
+    marginTop:30,
   },
   sentimentText1: {
     fontSize: 22,

@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Image, Text } from 'react-native-elements';
+import { StyleSheet, View} from 'react-native';
+import { Image, Text, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { db } from '../../firebaseconfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -75,20 +75,30 @@ const PlaceInfo = ({ route }: any) => {
           {locationData.Details} {/* Use dynamic details here */}
         </Text>
       </View>
-      <View style={{backgroundColor:'#75A82B'}}>
-      <TouchableOpacity onPress={()=>{
-        navigation.navigate('HotelList');
-      }}>
-          <Text>
-            Hotels in the Location
-          </Text>
-      </TouchableOpacity>
+      <View style={{top:20,left:40,width:300,backgroundColor:'#75A82B', alignContent:'center', borderRadius:20}}>
+
+      <Button
+        title="Hotels in the Location"
+        buttonStyle={styles.button1}
+        containerStyle={styles.buttonContainer}
+        titleStyle={styles.buttonTitle} // Add this line
+        onPress={() => {
+            navigation.navigate('HotelList');
+        }}
+    />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    width: '60%', // Change this to the desired width
+    alignSelf: 'center', // Center the button in the container
+},
+  buttonTitle: {
+    textAlign: 'center',
+},
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -110,6 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#200E32',
   },
+  button1: { marginTop: 2, backgroundColor: '#75A82B', borderRadius: 20 },
 });
 
 export default PlaceInfo;

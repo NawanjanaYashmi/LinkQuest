@@ -4,53 +4,43 @@ import { Button } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { AirbnbRating } from 'react-native-ratings';
 import Icon2 from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 import { db } from '../../firebaseconfig';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import axios from 'axios';
-import { reviewClassifierService } from '../services/review_classifier';
+import { useRoute } from'@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const Feedback = () => {
   const [hotelName, setHotelName] = useState('');
   const [hotelImage, setHotelImage] = useState('');
   const [rating, setRating] = useState(0);
   const [about, setAbout] = useState('');
-  const [summary, setSummary] = useState(''); // State for summary
-
-  const hotelId = '1NZtaXkjHTBdG0a2K2Gd';
-  const userID = 'Dinusajith@gmail.com'
-
+  const [summary, setSummary] = useState(''); 
   
-
-const navigation = useNavigation();
+  
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { hotelId, userID} = route.params;
+  
+  console.log(hotelId, userID);
 
   const handleBackPress = () => {
     navigation.goBack();
   };
 
-   const navigateallreviews=() =>{
-    navigation.navigate("AllReviews",{hotelId});
-   }
+  const navigateallreviews = () => {
+    navigation.navigate("AllReviews", { hotelId });
+  };
 
-   const navigatelinkquestreviews=() =>{
-    navigation.navigate("LinkQuestReviews",{hotelId, userID});
-   }
-
-
-
-  // const LinkQuestreviewpage = () => {
-  //   navigation.navigate('LinkQuestReviews', { hotelId });
-  // };
-
-
+  const navigatelinkquestreviews = () => {
+    navigation.navigate("LinkQuestReviews", { hotelId, userID });
+  };
 
   useEffect(() => {
     fetchHotel();
   }, []);
 
   const fetchHotel = async () => {
-   // const hotelId = '1NZtaXkjHTBdG0a2K2Gd'; // hard-coded hotel ID
-    
     try {
       const hotelDoc = doc(db, 'Hotel', hotelId);
       const snapshot = await getDoc(hotelDoc);
@@ -58,7 +48,7 @@ const navigation = useNavigation();
       if (snapshot.exists()) {
         const data = snapshot.data();
         setHotelName(data.Name);
-        setHotelImage(data.Img_url);
+        setHotelImage(data.Img_URL);
         setAbout(data.about);
 
         const reviewsRef = collection(db, 'reviews');
@@ -81,10 +71,9 @@ const navigation = useNavigation();
           setRating(0);
         }
 
-        // Send hotel details to OpenAI API for summarization
-        const hotelDetails = `Hotel name: ${data.Name}, About: ${data.about}, Rating: ${rating}`;
-        //const generatedSummary = await summarizeHotelDetails(data.about);
-        //setSummary(generatedSummary);
+        // Call the summarization function here
+        const generatedSummary = await summarizeHotelDetails(data.about);
+        setSummary(generatedSummary);
         
       } else {
         Alert.alert('No hotel found', 'The hotel ID does not exist.');
@@ -92,6 +81,7 @@ const navigation = useNavigation();
         setHotelImage('');
         setRating(0);
         setAbout('');
+        setSummary(''); // Reset summary if no hotel found
       }
     } catch (error) {
       console.error('Error fetching hotel:', error);
@@ -99,11 +89,8 @@ const navigation = useNavigation();
     }
   };
 
-  const summarizeHotelDetails = async (about: string): Promise<string> => {
-
-    console.log(about)//for testing
-    
-    const API_KEY = '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'; // Replace with your actual API key
+  const summarizeHotelDetails = async (about) => {
+    const Akey = 'sk-20bFLb5DiExGnTWh1QZwQMhjXGln7bjk-_wl6axzKjT3BlbkFJdbQTQ5Mjyc9jHZSNbz8Rjv4YURKcDd8pACxsrlH1QA';
   
     try {
       const response = await axios.post(
@@ -117,7 +104,7 @@ const navigation = useNavigation();
         },
         {
           headers: {
-            Authorization: `Bearer ${API_KEY}`,
+            Authorization: `Bearer ${Akey}`,
             'Content-Type': 'application/json',
           },
         }
@@ -132,11 +119,10 @@ const navigation = useNavigation();
       console.error('Error summarizing hotel details:', error);
       return 'Error occurred while summarizing hotel details.';
     }
-    return ""
   };
   
   return (
-    <View style={{ flex: 2 }}>
+    <View style={{ flex: 1 }}>
       <View style={{ flex: 1, borderBottomEndRadius: 50 }}>
         <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
           <Icon2 name="chevron-back" size={25} color="white" />
@@ -149,9 +135,8 @@ const navigation = useNavigation();
         )}
       </View>
 
-      <View style={{ flex: 2, backgroundColor: 'white', borderRadius: 30 }}>
+      <View style={{ flex: 0.7, backgroundColor: 'white', borderRadius: 30}}>
         <Text style={styles.hotelName}>{hotelName}</Text>
-        <Text style={styles.hotelAbout}>{about}</Text>
 
         <View style={styles.ratingContainer}>
           <AirbnbRating
@@ -164,19 +149,27 @@ const navigation = useNavigation();
           />
         </View>
 
-        <Text style={styles.details}>Hotel Details....</Text>
+        <Text style={styles.details}>Hotel Details : </Text>
       </View>
 
-      <View style={{ flex: 1, flexDirection: 'column', borderRadius: 30, top: 15 }}>
-        <Text style={styles.summary}>Summary Of Feedback</Text>
+      <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 30, alignContent:'center',marginTop:10}}>
+
+      <ScrollView style={styles.hotelAbout}>
+        <Text >{about}</Text>
+      </ScrollView>
+
+      </View>
+
+      <View style={{ flex: 1,backgroundColor:'white', flexDirection: 'column', borderRadius: 20, top: 15 }}>
+        <Text style={styles.summary}>Summary Of the Hotel</Text>
         <ScrollView>
           <View style={styles.box2}>
-            <Text style={styles.boxText}>{summary || 'Summary not available yet...'}</Text>
+            <Text style={styles.boxText}>{summary}</Text>
           </View>
         </ScrollView>
       </View>
 
-      <View style={{ flex: 1, alignItems: 'center' }}>
+      <View style={{ flex: 0.65,backgroundColor:'white', alignItems: 'center' }}>
         <Button
           title="All Review"
           buttonStyle={styles.button1}
@@ -190,28 +183,27 @@ const navigation = useNavigation();
           onPress={navigatelinkquestreviews}
         />
       </View>
-      <TouchableOpacity style={{borderWidth: 1,borderColor: '#75A82B',alignItems: 'center',justifyContent: 'center',width: 50,position: 'absolute',top: 600,right: 20,height: 50,backgroundColor: '#75A82B',borderRadius: 100,}}onPress={() => { navigation.navigate("CreateReview",{hotelId, userID}) }}>
-      <Text style={{ color: "white" , fontWeight:600, fontSize:30}}>+</Text></TouchableOpacity>
+      <TouchableOpacity style={{borderWidth: 1, borderColor: '#75A82B', alignItems: 'center', justifyContent: 'center', width: 50, position: 'absolute', top: 630, right: 5, height: 50, backgroundColor: '#75A82B', borderRadius: 100}} onPress={() => { navigation.navigate("CreateReview", { hotelId, userID }) }}>
+        <Text style={{ color: "white", fontWeight: '600', fontSize: 30 }}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  hotelName: { fontSize: 25, left: 14, top: 20, position: 'absolute' },
-  hotelAbout: { fontSize: 15, left: 14, top: 120, position: 'absolute' },
-  details: { left: 14, top: 95, color: '#696969', position: 'absolute' },
-  summary: { left: 20, top: 5, fontSize: 15, position: 'absolute' },
-  ratingContainer: { marginTop: 70, alignItems: 'center', right: 135 },
-  box2: { top: 13, height: 100, backgroundColor: '#A7F9B6', margin: 15, justifyContent: 'center', borderRadius: 20 },
-  boxText: { left: 10, fontSize: 15 },
+  hotelName: { fontWeight:'bold',fontSize: 25, left: 14, top: 20, position: 'absolute' },
+  hotelAbout: { backgroundColor:'white',fontSize: 20,top: 0,marginBottom:25 ,left:15,right:10,width:350},
+  // hotelAboutFlex :{ backgroundColor:'yellow',fontSize: 16,top: 0,marginBottom:70 ,left:0,right:500},
+  details: { fontWeight:'bold',fontSize:18, left: 14, top: 95, color: '#696969', position: 'absolute' },
+  summary: {fontWeight:'bold', left: 20,right:35, top: 2, fontSize: 15, position: 'absolute' },
+  ratingContainer: { marginTop: 60, alignItems: 'center', right: 135 },
+  box2: { top: 13, height: 100, backgroundColor: '#A7F9B6', margin: 15, justifyContent: 'center', borderRadius: 10 },
+  boxText: { left: 7,right:20, fontSize: 15 },
   button: { marginTop: 10, backgroundColor: '#75A82B', borderRadius: 20 },
-  button1: { marginTop: 60, backgroundColor: '#75A82B', borderRadius: 20 },
+  button1: { marginTop: 10, backgroundColor: '#75A82B', borderRadius: 20 },
   buttonContainer: { width: '80%' },
   backButton: { position: 'absolute', left: 20, padding: 10 },
   hotelImage: { width: '100%', height: 200, borderRadius: 0, margin: 0 },
 });
 
 export default Feedback;
-
-
-
