@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Header, Icon, Text } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import { ActivityIndicator, StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 import { collection, getDocs, QuerySnapshot } from 'firebase/firestore';
 import { db } from '../../firebaseconfig'; // Adjust the import path
@@ -11,7 +11,7 @@ interface Category {
 }
 
 const CategoryPage = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -60,7 +60,13 @@ const CategoryPage = () => {
           <ActivityIndicator size="large" color="#75A82B" style={styles.loadingIndicator} />
         ) : (
           categories.map((category, index) => (
-            <TouchableOpacity key={index} style={styles.categoryButton}>
+            <TouchableOpacity key={index} style={styles.categoryButton} onPress={()=>{
+              navigation.navigate('CatogoryList',
+                {
+                  location:category.Name
+                }
+              );
+            }}>
               <Image source={{ uri: category.url }} style={styles.categoryImage} />
               <Text style={styles.categoryName}>{category.Name}</Text>
             </TouchableOpacity>
