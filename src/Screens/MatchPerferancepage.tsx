@@ -96,8 +96,13 @@ const MatchPreferencePage = () => {
     navigation.goBack();
   };
 
-  if (loading) return <ActivityIndicator size="large" color="#75A82B" />;
-  if (error) return <Text>{error}</Text>;
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+        <ActivityIndicator size="large" color="#75A82B" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

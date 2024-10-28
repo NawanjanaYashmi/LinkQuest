@@ -125,8 +125,13 @@ const LinkQuestReviews = () => {
     </View>
   );
 
-  if (loading) return  <ActivityIndicator size="large" color="#75A82B" />;
-  if (error) return <Text>{error}</Text>;
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+        <ActivityIndicator size="large" color="#75A82B" />
+      </View>
+    );
+  }
 
   const categories = Array.from(
     new Set(classifiedReviews.flatMap(review => review.Sentences.map(sentence => sentence['Predicted Category'])))
@@ -186,6 +191,13 @@ const styles = StyleSheet.create({
   button1: { marginTop: 20, backgroundColor: '#75A82B', borderRadius: 15,marginLeft: 55 },
   buttonContainer: { width: '60%' },
   button: { marginTop: 20, backgroundColor: '#75A82B', borderRadius: 15 , marginRight: 55},
+
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white', // Optional: to ensure a white background while loading
+  },
 
   container: {
     flex: 1,

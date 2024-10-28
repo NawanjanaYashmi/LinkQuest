@@ -36,6 +36,7 @@ import SentimentScoure from '../Screens/SentimentScoure'
 import MatchPerferancepage from '../Screens/MatchPerferancepage'
 import CatogoryList from '../Screens/CatogoryList'
 import HotelList from '../Screens/HotelList'
+import PreferencesTagsSeletion from '../Screens/PreferencesTagsSeletion'
 
 
 
@@ -81,6 +82,7 @@ export default function AppNavigation() {
            <Stack.Screen name='HotelList' component={HotelList}/>
             <Stack.Screen name='RouteMap' component={RouteMap}/>
             <Stack.Screen name='CatogoryList' component={CatogoryList}/>
+            <Stack.Screen name='PreferencesTagsSeletion' component={PreferencesTagsSeletion}/>
             {/* <Stack.Screen name='ChatAssist' component={ChatAssist}/>there are some modifications to be done   */}
       
                       
