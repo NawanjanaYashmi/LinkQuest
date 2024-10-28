@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TagSelectionPage = ({ navigation }: any) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [apiUrl, setApiUrl] = useState<string | null>(null); 
 
   const tags = [
     'Beach', 'Nature', 'Lakes', 'Recreational',
@@ -37,10 +38,12 @@ const TagSelectionPage = ({ navigation }: any) => {
     };
   
     try {
+      const otherApi = await AsyncStorage.getItem('other_api');
+      setApiUrl(otherApi);
       await AsyncStorage.setItem('selected_tags', JSON.stringify(selectedTags));
       console.log('Selected Tags:', selectedTags);
   
-      const response = await fetch('http://10.0.2.2:5000/getplace', {
+      const response = await fetch(`${otherApi}/getplace`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

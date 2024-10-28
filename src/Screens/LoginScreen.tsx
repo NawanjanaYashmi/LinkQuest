@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ActivityInd
 import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseconfig';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');

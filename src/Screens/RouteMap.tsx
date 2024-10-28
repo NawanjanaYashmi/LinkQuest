@@ -13,6 +13,7 @@ const RouteMap: React.FC = () => {
   const [startingPlace, setStartingPlace] = useState<string | null>(null);
   const [startingTime, setStartingTime] = useState<string | null>(null);
   const [tripPlan, setTripPlan] = useState<any>(null);
+  const [apiUrl, setApiUrl] = useState<string | null>(null); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,11 +24,15 @@ const RouteMap: React.FC = () => {
         const startingPlace = await AsyncStorage.getItem('Starting_Place');
         const startingTime = await AsyncStorage.getItem('Starting_Time');
         const location = await AsyncStorage.getItem('location');
+        const otherApi = await AsyncStorage.getItem('other_api');
+       
 
         setNumberOfDays(days);
         setSelectedMonth(month);
         setStartingPlace(startingPlace);
         setStartingTime(startingTime);
+        setApiUrl(otherApi);
+        console.log(apiUrl)
 
         if (tags) {
           setSelectedTags(JSON.parse(tags));
@@ -42,8 +47,8 @@ const RouteMap: React.FC = () => {
           tags: selectedTags
         };
         
-
-        const response = await axios.post('http://10.0.2.2:5000/testing', requestData);
+ 
+        const response = await axios.post(`${otherApi}/testing`, requestData);
         if (response.status === 200) {
           setTripPlan(response.data);
         } else {
