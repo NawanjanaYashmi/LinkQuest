@@ -76,7 +76,7 @@ const PromotionScreen = () => {
           <Card style={styles.cardMain} key={promo.id}>
             <Card.Cover
               source={{ uri: promo.img_url || 'https://via.placeholder.com/150' }}
-              style={{ width: 355, height: 180 }}
+              
             />
             <Card.Content>
               <View style={styles.rowContainerTextOne}>

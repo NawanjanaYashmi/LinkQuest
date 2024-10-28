@@ -1,32 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, SafeAreaView, Image, ActivityIndicator } from "react-native";
 import { useNavigation } from '@react-navigation/native'; 
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { db } from '../../firebaseconfig'; // Import your Firebase configuration
+import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
 
 const Loading = () => {
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(true); // Add state for loading
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const checkUserEmail = async () => {
       try {
-        const email = await AsyncStorage.getItem('userEmail'); // Fetch email from AsyncStorage
+        // Fetch email from AsyncStorage
+        const email = await AsyncStorage.getItem('userEmail'); 
+        
+        // Fetch the otherAPI document from Firestore and store it in AsyncStorage
+        const apiDocRef = doc(db, 'API', 'otherAPI');
+        const apiDoc = await getDoc(apiDocRef);
+
+        if (apiDoc.exists()) {
+          const apiData = apiDoc.data()?.api; // Get the 'api' field from the document
+          if (apiData) {
+            await AsyncStorage.setItem('other_api', apiData); 
+          }
+        } else {
+          console.log("No such document!");
+        }
+
+        // Navigate based on email existence
         if (email) {
           navigation.reset({
             index: 0,
-            routes: [{ name: 'NavigationBar' as never }], // Navigate to HomeScreen if email exists
+            routes: [{ name: 'NavigationBar' as never }], 
           });
         } else {
           navigation.reset({
             index: 0,
-            routes: [{ name: 'LoginScreen' as never }], // Navigate to LoginScreen if email does not exist
+            routes: [{ name: 'LoginScreen' as never }], 
           });
         }
       } catch (error) {
-        console.error('Error fetching email from AsyncStorage', error);
+        console.error('Error fetching email or API data:', error);
         navigation.reset({
           index: 0,
-          routes: [{ name: 'LoginScreen' as never }], // Navigate to LoginScreen in case of error
+          routes: [{ name: 'LoginScreen' as never }],
         });
       } finally {
         setLoading(false); // Set loading to false after operation
@@ -34,7 +52,7 @@ const Loading = () => {
     };
 
     const timer = setTimeout(() => {
-      checkUserEmail(); // Check email after 5 seconds
+      checkUserEmail(); // Check email and API data after 5 seconds
     }, 5000); // 5 seconds
 
     return () => clearTimeout(timer);

@@ -4,6 +4,7 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import axios from 'axios';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Define the CalendarEvent interface
 interface CalendarEvent {
@@ -27,20 +28,23 @@ const CalendarDate: React.FC = () => {
   const [loadingPopup, setLoadingPopup] = useState<boolean>(false);
   const [cardColors, setCardColors] = useState<string[]>([]);
   const [calendarConnected, setCalendarConnected] = useState<boolean>(false);
+  const [apiUrl, setApiUrl] = useState<string | null>(null); 
 
   const API_KEY = 'AIzaSyAXn2msB7vYFoid-_7G7wQdIVSSUE3mBNA';
   const REGION_CODE = 'en.lk';
 
   useEffect(() => {
+   
     GoogleSignin.configure({
       webClientId: '1086206763805-c702vpspr6g0hf38pn5bubkn79944q6p.apps.googleusercontent.com',
       offlineAccess: true,
       scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
     });
   }, []);
-
+  
   const signInWithGoogle = async () => {
     try {
+      
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       const { idToken } = await GoogleSignin.getTokens();
@@ -217,8 +221,10 @@ const CalendarDate: React.FC = () => {
     const requestPayload = { texts: eventNames };
   
     try {
+      const otherApi = await AsyncStorage.getItem('other_api');
+      setApiUrl(otherApi);
       const response = await axios.post<{ predictions: number[] }>(
-        'http://10.0.2.2:5000/predict', // Update this URL if needed
+        `${otherApi}/testing`,
         requestPayload,
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -294,7 +300,10 @@ const CalendarDate: React.FC = () => {
             <Text style={styles.description}>
               Connect your Google account to sync and manage your calendar events seamlessly. Stay organized and never miss an important date!
             </Text>
-            <Button color='#75A82B' title="Connect Your Calendar" onPress={signInWithGoogle} />
+            <View style={{ width: 'auto' , padding:10}}> 
+            <Button color='#75A82B' title="Connect Your Calendar" onPress={signInWithGoogle}  />
+            </View>
+            
           </View>
           </View>
 

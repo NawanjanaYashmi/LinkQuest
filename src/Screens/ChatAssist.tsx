@@ -14,12 +14,16 @@ const ChatScreen = () => {
   const [inputText, setInputText] = useState<string>('');
   const [convoHistory, setConvoHistory] = useState<{ parts: { text: string }[], role: string }[]>([]);
   const [hotelData, setHotelData] = useState<string>(''); // Store hotel data here
+  const [apiUrl, setApiUrl] = useState<string | null>(null); 
 
-  // Load hotel data from AsyncStorage
+  // Load hotel data from AsyncStorag e
   useEffect(() => {
     const loadHotelData = async () => {
       try {
         const storedHotelData = await AsyncStorage.getItem('chat_data');
+        const otherApi = await AsyncStorage.getItem('other_api');
+        setApiUrl(otherApi); 
+        console.log(otherApi)
         if (storedHotelData) {
           setHotelData(storedHotelData);
         }
@@ -51,7 +55,7 @@ const ChatScreen = () => {
     setInputText('');
 
     try {
-      const response = await axios.post('http://10.0.2.2:5000/chat', {
+      const response = await axios.post(`${apiUrl}/chat`, {
         user_input: inputText,
         convo_history: updatedConvoHistory,
         hotel_data: hotelData 
