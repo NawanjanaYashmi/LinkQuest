@@ -90,7 +90,7 @@ const Feedback = () => {
   };
 
   const summarizeHotelDetails = async (about) => {
-    const Akey = 'sk-20bFLb5DiExGnTWh1QZwQMhjXGln7bjk-_wl6axzKjT3BlbkFJdbQTQ5Mjyc9jHZSNbz8Rjv4YURKcDd8pACxsrlH1QA';
+    const Akey = 'KEY';
   
     try {
       const response = await axios.post(
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   summary: {fontWeight:'bold', left: 20,right:35, top: 2, fontSize: 15, position: 'absolute' },
   ratingContainer: { marginTop: 60, alignItems: 'center', right: 135 },
   box2: { top: 13, height: 100, backgroundColor: '#A7F9B6', margin: 15, justifyContent: 'center', borderRadius: 10 },
-  boxText: { left: 7,right:20, fontSize: 15 },
+  boxText: {left: 6,right:20, fontSize: 15,width:350 },
   button: { marginTop: 10, backgroundColor: '#75A82B', borderRadius: 20 },
   button1: { marginTop: 10, backgroundColor: '#75A82B', borderRadius: 20 },
   buttonContainer: { width: '80%' },

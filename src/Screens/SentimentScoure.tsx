@@ -125,8 +125,15 @@ const SentimentScore = () => {
   };
 
 
-  if (loading) return <ActivityIndicator size="large" color="#75A82B" />;
-  if (error) return <Text>{error}</Text>;
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+        <ActivityIndicator size="large" color="#75A82B" />
+      </View>
+    );
+  }
+  
+
 
   return (
     <View style={styles.container}>
@@ -192,7 +199,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#75A82B',
   },
-
   container2: {
     flex: 0.5,
     backgroundColor: 'white',
@@ -314,7 +320,7 @@ const styles = StyleSheet.create({
     marginTop:15,
   },
   sentimentTextMCS: {
-    fontSize: 40,
+    fontSize: 35,
     color: 'white',
     textAlign:'center',
     fontWeight:'bold',
