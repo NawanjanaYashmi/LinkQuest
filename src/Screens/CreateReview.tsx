@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import { AirbnbRating } from 'react-native-ratings'; 
 import { Button } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { db } from '../../firebaseconfig';
 import { collection, addDoc } from 'firebase/firestore';
-import { useRoute } from '@react-navigation/native';
 
 const CreateReview = () => {
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(0);
   const navigation = useNavigation();
   const route = useRoute();
-  const { hotelId, userID } = route.params;
+  
+  console.log('Route Params:', route.params);
+  const { hotelId, userID } = route.params || {};
 
-  // Updated addReview function
+  if (!hotelId || !userID) {
+    Alert.alert("Error", "Hotel ID or User ID is missing.");
+    return null;
+  }
+
   const addReview = async (newReview) => {
+    console.log('Adding review:', newReview);
     try {
       const reviewsCollection = collection(db, 'reviews');
       await addDoc(reviewsCollection, newReview);
       console.log('Review added successfully!');
-      return true; // Indicate success
+      return true;
     } catch (error) {
       console.error('Error adding review:', error);
-      return false; // Indicate failure
+      return false;
     }
   };
 
@@ -37,13 +43,18 @@ const CreateReview = () => {
       userID
     };
 
-    const success = await addReview(newReview);
-    if (success) {
-      // Clear input after successful submission
-      setReview('');
-      setRating(0);
-      // Navigate back to the previous screen
-      navigation.navigate("Feedback");
+    try {
+      const success = await addReview(newReview);
+      if (success) {
+        setReview('');
+        setRating(0);
+        navigation.navigate("Feedback", { hotelId, userID });
+      } else {
+        Alert.alert('Failed to submit review. Please try again.');
+      }
+    } catch (error) {
+      console.error('Submit error:', error);
+      Alert.alert('An error occurred. Please try again.');
     }
   };
 
